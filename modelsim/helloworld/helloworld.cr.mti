@@ -229,6 +229,13 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 Top level modules:
 	e203_exu_csr
 
+} {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/tb/tb_top.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/tb/tb_top.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module tb_top
+
+Top level modules:
+	tb_top
+
 } {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/apb_adv_timer.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/apb_adv_timer.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 -- Compiling module apb_adv_timer
@@ -242,13 +249,6 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 
 Top level modules:
 	e203_subsys_mems
-
-} {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/tb/tb_top.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/tb/tb_top.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
--- Compiling module tb_top
-
-Top level modules:
-	tb_top
 
 } {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_spi_flashmap.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_spi_flashmap.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
@@ -320,13 +320,6 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 Top level modules:
 	e203_exu_wbck
 
-} {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
--- Compiling module sirv_AsyncResetRegVec_1
-
-Top level modules:
-	sirv_AsyncResetRegVec_1
-
 } {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_rglr.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_rglr.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 -- Compiling module e203_exu_alu_rglr
@@ -340,6 +333,13 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 
 Top level modules:
 	e203_exu_disp
+
+} {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module sirv_AsyncResetRegVec_1
+
+Top level modules:
+	sirv_AsyncResetRegVec_1
 
 } {} {}} C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon.v {1 {vlog -work work -vopt -stats=none C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014

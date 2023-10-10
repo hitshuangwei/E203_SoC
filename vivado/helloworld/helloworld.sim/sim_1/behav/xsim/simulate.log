@@ -1,0 +1,52 @@
+Time resolution is 1 ps
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ITCM 0x00: 3040507330047073
+ITCM 0x01: 8581819310001197
+ITCM 0x02: ff01011310010117
+ITCM 0x03: 1ac2829300000297
+ITCM 0x04: 3051f07330529073
+ITCM 0x05: 08c5051300000517
+ITCM 0x06: 0845859300000597
+ITCM 0x07: 0000261702b50063
+ITCM 0x16: c4221141a00129b5
+ITCM 0x20: 557d80f1aa2347a5
+HummingBird SDK Build Time: Jul 25 2022, 23:39:10
+
+
+Download Mode: ILM
+
+
+CPU Frequency 538378 Hz
+
+
+0: Hello World From My risc-v
+
+
+1: Hello World From My risc-v
+
+
+2: Hello World From My risc-v
+
+
+3: Hello World From My risc-v
+
+
+4: Hello World From My risc-v
+
+
+5: Hello World From My risc-v
+
+
+6: Hello World From My risc-v
+
+
+7: Hello World From My risc-v
+
+
+8: Hello World From My risc-v
+
+
+9: Hello World From My risc-v
+
+
+INFO: xsimkernel Simulation Memory Usage: 34480 KB (Peak: 34480 KB), Simulation CPU Usage: 13468 ms
