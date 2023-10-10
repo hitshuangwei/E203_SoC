@@ -1,38 +1,38 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Jayden Hu
 //
 // Description:
-//  The peirpheral bus and the connected devices 
+//  The peirpheral bus and the connected devices
 //
 // ====================================================================
 
-`include "e203_defines.v"
+`include "../core/e203_defines.v"
 
 
 module e203_subsys_perips(
   input                          ppi_icb_cmd_valid,
   output                         ppi_icb_cmd_ready,
-  input  [`E203_ADDR_SIZE-1:0]   ppi_icb_cmd_addr, 
-  input                          ppi_icb_cmd_read, 
+  input  [`E203_ADDR_SIZE-1:0]   ppi_icb_cmd_addr,
+  input                          ppi_icb_cmd_read,
   input  [`E203_XLEN-1:0]        ppi_icb_cmd_wdata,
   input  [`E203_XLEN/8-1:0]      ppi_icb_cmd_wmask,
   //
@@ -40,12 +40,12 @@ module e203_subsys_perips(
   input                          ppi_icb_rsp_ready,
   output                         ppi_icb_rsp_err,
   output [`E203_XLEN-1:0]        ppi_icb_rsp_rdata,
-  
+
   //////////////////////////////////////////////////////////
   output                         sysper_icb_cmd_valid,
   input                          sysper_icb_cmd_ready,
-  output [`E203_ADDR_SIZE-1:0]   sysper_icb_cmd_addr, 
-  output                         sysper_icb_cmd_read, 
+  output [`E203_ADDR_SIZE-1:0]   sysper_icb_cmd_addr,
+  output                         sysper_icb_cmd_read,
   output [`E203_XLEN-1:0]        sysper_icb_cmd_wdata,
   output [`E203_XLEN/8-1:0]      sysper_icb_cmd_wmask,
   //
@@ -57,8 +57,8 @@ module e203_subsys_perips(
   //////////////////////////////////////////////////////////
   output                         aon_icb_cmd_valid,
   input                          aon_icb_cmd_ready,
-  output [`E203_ADDR_SIZE-1:0]   aon_icb_cmd_addr, 
-  output                         aon_icb_cmd_read, 
+  output [`E203_ADDR_SIZE-1:0]   aon_icb_cmd_addr,
+  output                         aon_icb_cmd_read,
   output [`E203_XLEN-1:0]        aon_icb_cmd_wdata,
   //
   input                          aon_icb_rsp_valid,
@@ -68,10 +68,10 @@ module e203_subsys_perips(
 
   input                      qspi0_ro_icb_cmd_valid,
   output                     qspi0_ro_icb_cmd_ready,
-  input  [32-1:0]            qspi0_ro_icb_cmd_addr, 
-  input                      qspi0_ro_icb_cmd_read, 
+  input  [32-1:0]            qspi0_ro_icb_cmd_addr,
+  input                      qspi0_ro_icb_cmd_read,
   input  [32-1:0]            qspi0_ro_icb_cmd_wdata,
-  
+
   output                     qspi0_ro_icb_rsp_valid,
   input                      qspi0_ro_icb_rsp_ready,
   output [32-1:0]            qspi0_ro_icb_rsp_rdata,
@@ -103,7 +103,7 @@ module e203_subsys_perips(
   output  io_pads_qspi0_cs_0_o_oval,
   output  io_pads_qspi0_cs_0_o_oe,
 
-  output qspi0_irq, 
+  output qspi0_irq,
   output qspi1_irq,
   output qspi2_irq,
 
@@ -117,10 +117,10 @@ module e203_subsys_perips(
 
   output gpioA_irq,
   output gpioB_irq,
- 
-  output uart0_irq,                
-  output uart1_irq,                
-  output uart2_irq,                
+
+  output uart0_irq,
+  output uart1_irq,
+  output uart2_irq,
 
   output pllbypass ,
   output pll_RESET ,
@@ -139,11 +139,11 @@ module e203_subsys_perips(
   input  rst_n
   );
 
-  
+
   wire                         i_aon_icb_cmd_valid;
   wire                         i_aon_icb_cmd_ready;
-  wire [`E203_ADDR_SIZE-1:0]   i_aon_icb_cmd_addr; 
-  wire                         i_aon_icb_cmd_read; 
+  wire [`E203_ADDR_SIZE-1:0]   i_aon_icb_cmd_addr;
+  wire                         i_aon_icb_cmd_read;
   wire [`E203_XLEN-1:0]        i_aon_icb_cmd_wdata;
 
   wire                         i_aon_icb_rsp_valid;
@@ -170,21 +170,21 @@ module e203_subsys_perips(
 
   wire                     qspi0_icb_cmd_valid;
   wire                     qspi0_icb_cmd_ready;
-  wire [32-1:0]            qspi0_icb_cmd_addr; 
-  wire                     qspi0_icb_cmd_read; 
+  wire [32-1:0]            qspi0_icb_cmd_addr;
+  wire                     qspi0_icb_cmd_read;
   wire [32-1:0]            qspi0_icb_cmd_wdata;
-  
+
   wire                     qspi0_icb_rsp_valid;
   wire                     qspi0_icb_rsp_ready;
   wire [32-1:0]            qspi0_icb_rsp_rdata;
 
   wire                     uart0_apb_icb_cmd_valid;
   wire                     uart0_apb_icb_cmd_ready;
-  wire [32-1:0]            uart0_apb_icb_cmd_addr; 
-  wire                     uart0_apb_icb_cmd_read; 
+  wire [32-1:0]            uart0_apb_icb_cmd_addr;
+  wire                     uart0_apb_icb_cmd_read;
   wire [32-1:0]            uart0_apb_icb_cmd_wdata;
   wire [4 -1:0]            uart0_apb_icb_cmd_wmask;
-  
+
   wire                     uart0_apb_icb_rsp_valid;
   wire                     uart0_apb_icb_rsp_ready;
   wire [32-1:0]            uart0_apb_icb_rsp_rdata;
@@ -192,35 +192,35 @@ module e203_subsys_perips(
 
   wire                     uart1_apb_icb_cmd_valid;
   wire                     uart1_apb_icb_cmd_ready;
-  wire [32-1:0]            uart1_apb_icb_cmd_addr; 
-  wire                     uart1_apb_icb_cmd_read; 
+  wire [32-1:0]            uart1_apb_icb_cmd_addr;
+  wire                     uart1_apb_icb_cmd_read;
   wire [32-1:0]            uart1_apb_icb_cmd_wdata;
   wire [4 -1:0]            uart1_apb_icb_cmd_wmask;
-  
+
   wire                     uart1_apb_icb_rsp_valid;
   wire                     uart1_apb_icb_rsp_ready;
   wire [32-1:0]            uart1_apb_icb_rsp_rdata;
-  wire                     uart1_apb_icb_rsp_err; 
+  wire                     uart1_apb_icb_rsp_err;
 
   wire                     uart2_apb_icb_cmd_valid;
   wire                     uart2_apb_icb_cmd_ready;
-  wire [32-1:0]            uart2_apb_icb_cmd_addr; 
-  wire                     uart2_apb_icb_cmd_read; 
+  wire [32-1:0]            uart2_apb_icb_cmd_addr;
+  wire                     uart2_apb_icb_cmd_read;
   wire [32-1:0]            uart2_apb_icb_cmd_wdata;
   wire [4 -1:0]            uart2_apb_icb_cmd_wmask;
-  
+
   wire                     uart2_apb_icb_rsp_valid;
   wire                     uart2_apb_icb_rsp_ready;
   wire [32-1:0]            uart2_apb_icb_rsp_rdata;
-  wire                     uart2_apb_icb_rsp_err;  
+  wire                     uart2_apb_icb_rsp_err;
 
   wire                     spi1_apb_icb_cmd_valid;
   wire                     spi1_apb_icb_cmd_ready;
-  wire [32-1:0]            spi1_apb_icb_cmd_addr; 
-  wire                     spi1_apb_icb_cmd_read; 
+  wire [32-1:0]            spi1_apb_icb_cmd_addr;
+  wire                     spi1_apb_icb_cmd_read;
   wire [32-1:0]            spi1_apb_icb_cmd_wdata;
   wire [4 -1:0]            spi1_apb_icb_cmd_wmask;
-  
+
   wire                     spi1_apb_icb_rsp_valid;
   wire                     spi1_apb_icb_rsp_ready;
   wire [32-1:0]            spi1_apb_icb_rsp_rdata;
@@ -228,23 +228,23 @@ module e203_subsys_perips(
 
   wire                     spi2_apb_icb_cmd_valid;
   wire                     spi2_apb_icb_cmd_ready;
-  wire [32-1:0]            spi2_apb_icb_cmd_addr; 
-  wire                     spi2_apb_icb_cmd_read; 
+  wire [32-1:0]            spi2_apb_icb_cmd_addr;
+  wire                     spi2_apb_icb_cmd_read;
   wire [32-1:0]            spi2_apb_icb_cmd_wdata;
   wire [4 -1:0]            spi2_apb_icb_cmd_wmask;
-  
+
   wire                     spi2_apb_icb_rsp_valid;
   wire                     spi2_apb_icb_rsp_ready;
   wire [32-1:0]            spi2_apb_icb_rsp_rdata;
-  wire                     spi2_apb_icb_rsp_err;  
+  wire                     spi2_apb_icb_rsp_err;
 
   wire                     expl_axi_icb_cmd_valid;
   wire                     expl_axi_icb_cmd_ready;
-  wire [32-1:0]            expl_axi_icb_cmd_addr; 
-  wire                     expl_axi_icb_cmd_read; 
+  wire [32-1:0]            expl_axi_icb_cmd_addr;
+  wire                     expl_axi_icb_cmd_read;
   wire [32-1:0]            expl_axi_icb_cmd_wdata;
   wire [4 -1:0]            expl_axi_icb_cmd_wmask;
-  
+
   wire                     expl_axi_icb_rsp_valid;
   wire                     expl_axi_icb_rsp_ready;
   wire [32-1:0]            expl_axi_icb_rsp_rdata;
@@ -252,11 +252,11 @@ module e203_subsys_perips(
 
   wire                     gpioA_apb_icb_cmd_valid;
   wire                     gpioA_apb_icb_cmd_ready;
-  wire [32-1:0]            gpioA_apb_icb_cmd_addr; 
-  wire                     gpioA_apb_icb_cmd_read; 
+  wire [32-1:0]            gpioA_apb_icb_cmd_addr;
+  wire                     gpioA_apb_icb_cmd_read;
   wire [32-1:0]            gpioA_apb_icb_cmd_wdata;
   wire [4 -1:0]            gpioA_apb_icb_cmd_wmask;
-  
+
   wire                     gpioA_apb_icb_rsp_valid;
   wire                     gpioA_apb_icb_rsp_ready;
   wire [32-1:0]            gpioA_apb_icb_rsp_rdata;
@@ -264,11 +264,11 @@ module e203_subsys_perips(
 
   wire                     gpioB_apb_icb_cmd_valid;
   wire                     gpioB_apb_icb_cmd_ready;
-  wire [32-1:0]            gpioB_apb_icb_cmd_addr; 
-  wire                     gpioB_apb_icb_cmd_read; 
+  wire [32-1:0]            gpioB_apb_icb_cmd_addr;
+  wire                     gpioB_apb_icb_cmd_read;
   wire [32-1:0]            gpioB_apb_icb_cmd_wdata;
   wire [4 -1:0]            gpioB_apb_icb_cmd_wmask;
-  
+
   wire                     gpioB_apb_icb_rsp_valid;
   wire                     gpioB_apb_icb_rsp_ready;
   wire [32-1:0]            gpioB_apb_icb_rsp_rdata;
@@ -276,11 +276,11 @@ module e203_subsys_perips(
 
   wire                     i2c0_apb_icb_cmd_valid;
   wire                     i2c0_apb_icb_cmd_ready;
-  wire [32-1:0]            i2c0_apb_icb_cmd_addr; 
-  wire                     i2c0_apb_icb_cmd_read; 
+  wire [32-1:0]            i2c0_apb_icb_cmd_addr;
+  wire                     i2c0_apb_icb_cmd_read;
   wire [32-1:0]            i2c0_apb_icb_cmd_wdata;
   wire [4 -1:0]            i2c0_apb_icb_cmd_wmask;
-  
+
   wire                     i2c0_apb_icb_rsp_valid;
   wire                     i2c0_apb_icb_rsp_ready;
   wire [32-1:0]            i2c0_apb_icb_rsp_rdata;
@@ -288,23 +288,23 @@ module e203_subsys_perips(
 
   wire                     i2c1_apb_icb_cmd_valid;
   wire                     i2c1_apb_icb_cmd_ready;
-  wire [32-1:0]            i2c1_apb_icb_cmd_addr; 
-  wire                     i2c1_apb_icb_cmd_read; 
+  wire [32-1:0]            i2c1_apb_icb_cmd_addr;
+  wire                     i2c1_apb_icb_cmd_read;
   wire [32-1:0]            i2c1_apb_icb_cmd_wdata;
   wire [4 -1:0]            i2c1_apb_icb_cmd_wmask;
-  
+
   wire                     i2c1_apb_icb_rsp_valid;
   wire                     i2c1_apb_icb_rsp_ready;
   wire [32-1:0]            i2c1_apb_icb_rsp_rdata;
-  wire                     i2c1_apb_icb_rsp_err;  
+  wire                     i2c1_apb_icb_rsp_err;
 
   wire                     pwm_apb_icb_cmd_valid;
   wire                     pwm_apb_icb_cmd_ready;
-  wire [32-1:0]            pwm_apb_icb_cmd_addr; 
-  wire                     pwm_apb_icb_cmd_read; 
+  wire [32-1:0]            pwm_apb_icb_cmd_addr;
+  wire                     pwm_apb_icb_cmd_read;
   wire [32-1:0]            pwm_apb_icb_cmd_wdata;
   wire [4 -1:0]            pwm_apb_icb_cmd_wmask;
-  
+
   wire                     pwm_apb_icb_rsp_valid;
   wire                     pwm_apb_icb_rsp_ready;
   wire [32-1:0]            pwm_apb_icb_rsp_rdata;
@@ -312,11 +312,11 @@ module e203_subsys_perips(
 
   wire                     hclkgen_icb_cmd_valid;
   wire                     hclkgen_icb_cmd_ready;
-  wire [32-1:0]            hclkgen_icb_cmd_addr; 
-  wire                     hclkgen_icb_cmd_read; 
+  wire [32-1:0]            hclkgen_icb_cmd_addr;
+  wire                     hclkgen_icb_cmd_read;
   wire [32-1:0]            hclkgen_icb_cmd_wdata;
   wire [4 -1:0]            hclkgen_icb_cmd_wmask;
-  
+
   wire                     hclkgen_icb_rsp_valid;
   wire                     hclkgen_icb_rsp_ready;
   wire [32-1:0]            hclkgen_icb_rsp_rdata;
@@ -351,55 +351,55 @@ module e203_subsys_perips(
   .SPLT_FIFO_OUTS_NUM   (1),// The peirpherals only allow 1 oustanding
   .SPLT_FIFO_CUT_READY  (1),// The peirpherals always cut ready
   //  * AON       : 0x1000 0000 -- 0x1000 7FFF
-  .O0_BASE_ADDR       (32'h1000_0000),       
+  .O0_BASE_ADDR       (32'h1000_0000),
   .O0_BASE_REGION_LSB (15),
   //  * HCLKGEN   : 0x1000 8000 -- 0x1000 8FFF
-  .O1_BASE_ADDR       (32'h1000_8000),       
+  .O1_BASE_ADDR       (32'h1000_8000),
   .O1_BASE_REGION_LSB (12),
   //  * GPIOA     : 0x1001 2000 -- 0x1001 2FFF
-  .O2_BASE_ADDR       (32'h1001_2000),       
+  .O2_BASE_ADDR       (32'h1001_2000),
   .O2_BASE_REGION_LSB (12),
   //  * UART0     : 0x1001 3000 -- 0x1001 3FFF
-  .O3_BASE_ADDR       (32'h1001_3000),       
+  .O3_BASE_ADDR       (32'h1001_3000),
   .O3_BASE_REGION_LSB (12),
   //  * QSPI0     : 0x1001 4000 -- 0x1001 4FFF
-  .O4_BASE_ADDR       (32'h1001_4000),       
+  .O4_BASE_ADDR       (32'h1001_4000),
   .O4_BASE_REGION_LSB (12),
   //  * PWM       : 0x1001 5000 -- 0x1001 5FFF
-  .O5_BASE_ADDR       (32'h1001_5000),       
+  .O5_BASE_ADDR       (32'h1001_5000),
   .O5_BASE_REGION_LSB (12),
   //  * UART1     : 0x1002 3000 -- 0x1002 3FFF
-  .O6_BASE_ADDR       (32'h1002_3000),       
+  .O6_BASE_ADDR       (32'h1002_3000),
   .O6_BASE_REGION_LSB (12),
   //  * QSPI1     : 0x1002 4000 -- 0x1002 4FFF
-  .O7_BASE_ADDR       (32'h1002_4000),       
+  .O7_BASE_ADDR       (32'h1002_4000),
   .O7_BASE_REGION_LSB (12),
   //  * I2C0      : 0x1002 5000 -- 0x1002 5FFF
-  .O8_BASE_ADDR       (32'h1002_5000),       
+  .O8_BASE_ADDR       (32'h1002_5000),
   .O8_BASE_REGION_LSB (12),
   //  * UART2     : 0x1003 3000 -- 0x1003 3FFF
-  .O9_BASE_ADDR       (32'h1003_3000),       
+  .O9_BASE_ADDR       (32'h1003_3000),
   .O9_BASE_REGION_LSB (12),
   //  * QSPI2     : 0x1003 4000 -- 0x1003 4FFF
-  .O10_BASE_ADDR       (32'h1003_4000),       
+  .O10_BASE_ADDR       (32'h1003_4000),
   .O10_BASE_REGION_LSB (12),
   //  * I2C1      : 0x1003 5000 -- 0x1003 5FFF
-  .O11_BASE_ADDR       (32'h1003_5000),       
+  .O11_BASE_ADDR       (32'h1003_5000),
   .O11_BASE_REGION_LSB (12),
   //  * SysPer    : 0x1100 0000 -- 0x11FF FFFF
-  .O12_BASE_ADDR       (32'h1100_0000),       
+  .O12_BASE_ADDR       (32'h1100_0000),
   .O12_BASE_REGION_LSB (24),
 
   // * GPIOB      : 0x1004 0000 -- 0x1004 0FFF
-  .O13_BASE_ADDR       (32'h1004_0000),       
+  .O13_BASE_ADDR       (32'h1004_0000),
   .O13_BASE_REGION_LSB (12),
-  
+
   // * Here is an example AXI Peripheral
-  .O14_BASE_ADDR       (32'h1004_1000),       
+  .O14_BASE_ADDR       (32'h1004_1000),
   .O14_BASE_REGION_LSB (12),
-  
-  // * Reserved 
-  .O15_BASE_ADDR       (32'h1004_2000),       
+
+  // * Reserved
+  .O15_BASE_ADDR       (32'h1004_2000),
   .O15_BASE_REGION_LSB (3)
 
   )u_sirv_ppi_fab(
@@ -415,14 +415,14 @@ module e203_subsys_perips(
     .i_icb_cmd_size   (2'b0 ),
     .i_icb_cmd_burst  (2'b0 ),
     .i_icb_cmd_beat   (2'b0 ),
-    
+
     .i_icb_rsp_valid  (ppi_icb_rsp_valid),
     .i_icb_rsp_ready  (ppi_icb_rsp_ready),
     .i_icb_rsp_err    (ppi_icb_rsp_err  ),
     .i_icb_rsp_excl_ok(),
     .i_icb_rsp_rdata  (ppi_icb_rsp_rdata),
-    
-  //  * AON 
+
+  //  * AON
     .o0_icb_enable     (1'b1),
 
         //
@@ -437,14 +437,14 @@ module e203_subsys_perips(
     .o0_icb_cmd_size   (),
     .o0_icb_cmd_burst  (),
     .o0_icb_cmd_beat   (),
-    
+
     .o0_icb_rsp_valid  (i_aon_icb_rsp_valid),
     .o0_icb_rsp_ready  (i_aon_icb_rsp_ready),
     .o0_icb_rsp_err    (i_aon_icb_rsp_err),
     .o0_icb_rsp_excl_ok(1'b0  ),
     .o0_icb_rsp_rdata  (i_aon_icb_rsp_rdata),
 
-  //  * HCLKGEN      
+  //  * HCLKGEN
     .o1_icb_enable     (1'b1),
 
     .o1_icb_cmd_valid  (hclkgen_icb_cmd_valid),
@@ -458,7 +458,7 @@ module e203_subsys_perips(
     .o1_icb_cmd_size   (),
     .o1_icb_cmd_burst  (),
     .o1_icb_cmd_beat   (),
-    
+
     .o1_icb_rsp_valid  (hclkgen_icb_rsp_valid),
     .o1_icb_rsp_ready  (hclkgen_icb_rsp_ready),
     .o1_icb_rsp_err    (1'b0  ),
@@ -466,7 +466,7 @@ module e203_subsys_perips(
     .o1_icb_rsp_rdata  (hclkgen_icb_rsp_rdata),
 
 
-  //  * GPIOA      
+  //  * GPIOA
     .o2_icb_enable     (1'b1),
 
     .o2_icb_cmd_valid  (gpioA_apb_icb_cmd_valid),
@@ -480,14 +480,14 @@ module e203_subsys_perips(
     .o2_icb_cmd_size   (),
     .o2_icb_cmd_burst  (),
     .o2_icb_cmd_beat   (),
-    
+
     .o2_icb_rsp_valid  (gpioA_apb_icb_rsp_valid),
     .o2_icb_rsp_ready  (gpioA_apb_icb_rsp_ready),
     .o2_icb_rsp_err    (gpioA_apb_icb_rsp_err),
     .o2_icb_rsp_excl_ok(1'b0  ),
     .o2_icb_rsp_rdata  (gpioA_apb_icb_rsp_rdata),
 
-  //  * UART0     
+  //  * UART0
     .o3_icb_enable     (1'b1),
 
     .o3_icb_cmd_valid  (uart0_apb_icb_cmd_valid),
@@ -501,14 +501,14 @@ module e203_subsys_perips(
     .o3_icb_cmd_size   (),
     .o3_icb_cmd_burst  (),
     .o3_icb_cmd_beat   (),
-    
+
     .o3_icb_rsp_valid  (uart0_apb_icb_rsp_valid),
     .o3_icb_rsp_ready  (uart0_apb_icb_rsp_ready),
     .o3_icb_rsp_err    (uart0_apb_icb_rsp_err  ),
     .o3_icb_rsp_excl_ok(1'b0  ),
     .o3_icb_rsp_rdata  (uart0_apb_icb_rsp_rdata),
 
-  //  * QSPI0     
+  //  * QSPI0
     .o4_icb_enable     (1'b1),
 
     .o4_icb_cmd_valid  (qspi0_icb_cmd_valid),
@@ -522,7 +522,7 @@ module e203_subsys_perips(
     .o4_icb_cmd_size   (),
     .o4_icb_cmd_burst  (),
     .o4_icb_cmd_beat   (),
-    
+
     .o4_icb_rsp_valid  (qspi0_icb_rsp_valid),
     .o4_icb_rsp_ready  (qspi0_icb_rsp_ready),
     .o4_icb_rsp_err    (1'b0  ),
@@ -530,7 +530,7 @@ module e203_subsys_perips(
     .o4_icb_rsp_rdata  (qspi0_icb_rsp_rdata),
 
 
-  //  * PWM      
+  //  * PWM
     .o5_icb_enable     (1'b1),
 
     .o5_icb_cmd_valid  (pwm_apb_icb_cmd_valid),
@@ -544,14 +544,14 @@ module e203_subsys_perips(
     .o5_icb_cmd_size   (),
     .o5_icb_cmd_burst  (),
     .o5_icb_cmd_beat   (),
-    
+
     .o5_icb_rsp_valid  (pwm_apb_icb_rsp_valid),
     .o5_icb_rsp_ready  (pwm_apb_icb_rsp_ready),
     .o5_icb_rsp_err    (pwm_apb_icb_rsp_err  ),
     .o5_icb_rsp_excl_ok(1'b0  ),
     .o5_icb_rsp_rdata  (pwm_apb_icb_rsp_rdata),
 
-  //  * UART1     
+  //  * UART1
     .o6_icb_enable     (1'b1),
 
     .o6_icb_cmd_valid  (uart1_apb_icb_cmd_valid),
@@ -565,14 +565,14 @@ module e203_subsys_perips(
     .o6_icb_cmd_size   (),
     .o6_icb_cmd_burst  (),
     .o6_icb_cmd_beat   (),
-    
+
     .o6_icb_rsp_valid  (uart1_apb_icb_rsp_valid),
     .o6_icb_rsp_ready  (uart1_apb_icb_rsp_ready),
     .o6_icb_rsp_err    (uart1_apb_icb_rsp_err  ),
     .o6_icb_rsp_excl_ok(1'b0  ),
     .o6_icb_rsp_rdata  (uart1_apb_icb_rsp_rdata),
 
-  //  * QSPI1     
+  //  * QSPI1
     .o7_icb_enable     (1'b1),
 
     .o7_icb_cmd_valid  (spi1_apb_icb_cmd_valid),
@@ -586,14 +586,14 @@ module e203_subsys_perips(
     .o7_icb_cmd_size   (),
     .o7_icb_cmd_burst  (),
     .o7_icb_cmd_beat   (),
-    
+
     .o7_icb_rsp_valid  (spi1_apb_icb_rsp_valid),
     .o7_icb_rsp_ready  (spi1_apb_icb_rsp_ready),
     .o7_icb_rsp_err    (spi1_apb_icb_rsp_err  ),
     .o7_icb_rsp_excl_ok(1'b0  ),
     .o7_icb_rsp_rdata  (spi1_apb_icb_rsp_rdata),
 
-  //  * I2C0      
+  //  * I2C0
     .o8_icb_enable     (1'b1),
 
     .o8_icb_cmd_valid  (i2c0_apb_icb_cmd_valid),
@@ -607,14 +607,14 @@ module e203_subsys_perips(
     .o8_icb_cmd_size   (),
     .o8_icb_cmd_burst  (),
     .o8_icb_cmd_beat   (),
-    
+
     .o8_icb_rsp_valid  (i2c0_apb_icb_rsp_valid),
     .o8_icb_rsp_ready  (i2c0_apb_icb_rsp_ready),
     .o8_icb_rsp_err    (i2c0_apb_icb_rsp_err),
     .o8_icb_rsp_excl_ok(1'b0  ),
     .o8_icb_rsp_rdata  (i2c0_apb_icb_rsp_rdata),
 
-  //  * UART2     
+  //  * UART2
     .o9_icb_enable     (1'b1),
 
     .o9_icb_cmd_valid  (uart2_apb_icb_cmd_valid),
@@ -628,14 +628,14 @@ module e203_subsys_perips(
     .o9_icb_cmd_size   (),
     .o9_icb_cmd_burst  (),
     .o9_icb_cmd_beat   (),
-    
+
     .o9_icb_rsp_valid  (uart2_apb_icb_rsp_valid),
     .o9_icb_rsp_ready  (uart2_apb_icb_rsp_ready),
     .o9_icb_rsp_err    (uart2_apb_icb_rsp_err  ),
     .o9_icb_rsp_excl_ok(1'b0  ),
     .o9_icb_rsp_rdata  (uart2_apb_icb_rsp_rdata),
 
-  //  * QSPI2     
+  //  * QSPI2
     .o10_icb_enable     (1'b1),
 
     .o10_icb_cmd_valid  (spi2_apb_icb_cmd_valid),
@@ -649,14 +649,14 @@ module e203_subsys_perips(
     .o10_icb_cmd_size   (),
     .o10_icb_cmd_burst  (),
     .o10_icb_cmd_beat   (),
-    
+
     .o10_icb_rsp_valid  (spi2_apb_icb_rsp_valid),
     .o10_icb_rsp_ready  (spi2_apb_icb_rsp_ready),
     .o10_icb_rsp_err    (spi2_apb_icb_rsp_err  ),
     .o10_icb_rsp_excl_ok(1'b0  ),
     .o10_icb_rsp_rdata  (spi2_apb_icb_rsp_rdata),
 
-  //  * I2C1  
+  //  * I2C1
     .o11_icb_enable     (1'b1),
 
     .o11_icb_cmd_valid  (i2c1_apb_icb_cmd_valid),
@@ -670,14 +670,14 @@ module e203_subsys_perips(
     .o11_icb_cmd_size   (),
     .o11_icb_cmd_burst  (),
     .o11_icb_cmd_beat   (),
-    
+
     .o11_icb_rsp_valid  (i2c1_apb_icb_rsp_valid),
     .o11_icb_rsp_ready  (i2c1_apb_icb_rsp_ready),
     .o11_icb_rsp_err    (i2c1_apb_icb_rsp_err),
     .o11_icb_rsp_excl_ok(1'b0  ),
-    .o11_icb_rsp_rdata  (i2c1_apb_icb_rsp_rdata),     
+    .o11_icb_rsp_rdata  (i2c1_apb_icb_rsp_rdata),
 
-  //  * SysPer    
+  //  * SysPer
     .o12_icb_enable     (1'b1),
 
     .o12_icb_cmd_valid  (sysper_icb_cmd_valid),
@@ -691,14 +691,14 @@ module e203_subsys_perips(
     .o12_icb_cmd_size   (),
     .o12_icb_cmd_burst  (),
     .o12_icb_cmd_beat   (),
-    
+
     .o12_icb_rsp_valid  (sysper_icb_rsp_valid),
     .o12_icb_rsp_ready  (sysper_icb_rsp_ready),
     .o12_icb_rsp_err    (sysper_icb_rsp_err),
     .o12_icb_rsp_excl_ok(1'b0  ),
     .o12_icb_rsp_rdata  (sysper_icb_rsp_rdata),
 
-  //  * GPIOB      
+  //  * GPIOB
     .o13_icb_enable     (1'b1),
 
     .o13_icb_cmd_valid  (gpioB_apb_icb_cmd_valid),
@@ -712,14 +712,14 @@ module e203_subsys_perips(
     .o13_icb_cmd_size   (),
     .o13_icb_cmd_burst  (),
     .o13_icb_cmd_beat   (),
-    
+
     .o13_icb_rsp_valid  (gpioB_apb_icb_rsp_valid),
     .o13_icb_rsp_ready  (gpioB_apb_icb_rsp_ready),
     .o13_icb_rsp_err    (gpioB_apb_icb_rsp_err),
     .o13_icb_rsp_excl_ok(1'b0  ),
     .o13_icb_rsp_rdata  (gpioB_apb_icb_rsp_rdata),
 
-   //  * Example AXI    
+   //  * Example AXI
     .o14_icb_enable     (1'b1),
 
     .o14_icb_cmd_valid  (expl_axi_icb_cmd_valid),
@@ -733,7 +733,7 @@ module e203_subsys_perips(
     .o14_icb_cmd_size   (),
     .o14_icb_cmd_burst  (),
     .o14_icb_cmd_beat   (),
-    
+
     .o14_icb_rsp_valid  (expl_axi_icb_rsp_valid),
     .o14_icb_rsp_ready  (expl_axi_icb_rsp_ready),
     .o14_icb_rsp_err    (1'b0 ),
@@ -741,7 +741,7 @@ module e203_subsys_perips(
     .o14_icb_rsp_rdata  (expl_axi_icb_rsp_rdata),
 
 
-   //  *      
+   //  *
     .o15_icb_enable     (1'b0),
 
     .o15_icb_cmd_valid  (),
@@ -755,7 +755,7 @@ module e203_subsys_perips(
     .o15_icb_cmd_size   (),
     .o15_icb_cmd_burst  (),
     .o15_icb_cmd_beat   (),
-    
+
     .o15_icb_rsp_valid  (1'b0),
     .o15_icb_rsp_ready  (),
     .o15_icb_rsp_err    (1'b0),
@@ -763,11 +763,11 @@ module e203_subsys_perips(
     .o15_icb_rsp_rdata  (32'b0),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
-  //  * QSPI0     
+  //  * QSPI0
 sirv_flash_qspi_top u_sirv_qspi0_top(
     .clk           (clk  ),
     .rst_n         (rst_n),
@@ -777,22 +777,22 @@ sirv_flash_qspi_top u_sirv_qspi0_top(
     .i_icb_cmd_addr  (qspi0_icb_cmd_addr ),
     .i_icb_cmd_read  (qspi0_icb_cmd_read ),
     .i_icb_cmd_wdata (qspi0_icb_cmd_wdata),
-    
+
     .i_icb_rsp_valid (qspi0_icb_rsp_valid),
     .i_icb_rsp_ready (qspi0_icb_rsp_ready),
-    .i_icb_rsp_rdata (qspi0_icb_rsp_rdata), 
+    .i_icb_rsp_rdata (qspi0_icb_rsp_rdata),
 
     .f_icb_cmd_valid (qspi0_ro_icb_cmd_valid),
     .f_icb_cmd_ready (qspi0_ro_icb_cmd_ready),
     .f_icb_cmd_addr  (qspi0_ro_icb_cmd_addr ),
     .f_icb_cmd_read  (qspi0_ro_icb_cmd_read ),
     .f_icb_cmd_wdata (qspi0_ro_icb_cmd_wdata),
-    
+
     .f_icb_rsp_valid (qspi0_ro_icb_rsp_valid),
     .f_icb_rsp_ready (qspi0_ro_icb_rsp_ready),
-    .f_icb_rsp_rdata (qspi0_ro_icb_rsp_rdata), 
+    .f_icb_rsp_rdata (qspi0_ro_icb_rsp_rdata),
 
-    .io_port_sck     (qspi0_sck    ), 
+    .io_port_sck     (qspi0_sck    ),
     .io_port_dq_0_i  (qspi0_dq_0_i ),
     .io_port_dq_0_o  (qspi0_dq_0_o ),
     .io_port_dq_0_oe (qspi0_dq_0_oe),
@@ -806,7 +806,7 @@ sirv_flash_qspi_top u_sirv_qspi0_top(
     .io_port_dq_3_o  (qspi0_dq_3_o ),
     .io_port_dq_3_oe (qspi0_dq_3_oe),
     .io_port_cs_0    (qspi0_cs_0   ),
-    .io_tl_i_0_0     (qspi0_irq    ) 
+    .io_tl_i_0_0     (qspi0_irq    )
 );
 
   assign qspi0_dq_0_i              = io_pads_qspi0_dq_0_i_ival;
@@ -835,52 +835,52 @@ sirv_flash_qspi_top u_sirv_qspi0_top(
   wire [RSP_PACK_W-1:0] i_aon_icb_rsp_pack;
   wire [CMD_PACK_W-1:0] aon_icb_cmd_pack;
   wire [RSP_PACK_W-1:0] aon_icb_rsp_pack;
-  
+
   assign i_aon_icb_cmd_pack = {
-          i_aon_icb_cmd_addr, 
-          i_aon_icb_cmd_read, 
+          i_aon_icb_cmd_addr,
+          i_aon_icb_cmd_read,
           i_aon_icb_cmd_wdata};
 
-  assign {aon_icb_cmd_addr, 
-          aon_icb_cmd_read, 
+  assign {aon_icb_cmd_addr,
+          aon_icb_cmd_read,
           aon_icb_cmd_wdata} = aon_icb_cmd_pack;
 
-  sirv_gnrl_cdc_tx   
+  sirv_gnrl_cdc_tx
    # (
      .DW      (CMD_PACK_W),
-     .SYNC_DP (`E203_ASYNC_FF_LEVELS) 
+     .SYNC_DP (`E203_ASYNC_FF_LEVELS)
    ) u_aon_icb_cdc_tx (
-     .o_vld  (aon_icb_cmd_valid ), 
-     .o_rdy_a(aon_icb_cmd_ready ), 
+     .o_vld  (aon_icb_cmd_valid ),
+     .o_rdy_a(aon_icb_cmd_ready ),
      .o_dat  (aon_icb_cmd_pack ),
      .i_vld  (i_aon_icb_cmd_valid ),
      .i_rdy  (i_aon_icb_cmd_ready ),
      .i_dat  (i_aon_icb_cmd_pack ),
-   
+
      .clk    (clk),
      .rst_n  (rst_n)
    );
-     
+
 
   assign aon_icb_rsp_pack = {
-          aon_icb_rsp_err, 
+          aon_icb_rsp_err,
           aon_icb_rsp_rdata};
 
-  assign {i_aon_icb_rsp_err, 
+  assign {i_aon_icb_rsp_err,
           i_aon_icb_rsp_rdata} = i_aon_icb_rsp_pack;
 
-   sirv_gnrl_cdc_rx   
+   sirv_gnrl_cdc_rx
       # (
      .DW      (RSP_PACK_W),
-     .SYNC_DP (`E203_ASYNC_FF_LEVELS) 
+     .SYNC_DP (`E203_ASYNC_FF_LEVELS)
    ) u_aon_icb_cdc_rx (
-     .i_vld_a(aon_icb_rsp_valid), 
-     .i_rdy  (aon_icb_rsp_ready), 
+     .i_vld_a(aon_icb_rsp_valid),
+     .i_rdy  (aon_icb_rsp_ready),
      .i_dat  (aon_icb_rsp_pack),
      .o_vld  (i_aon_icb_rsp_valid),
      .o_rdy  (i_aon_icb_rsp_ready),
      .o_dat  (i_aon_icb_rsp_pack),
-   
+
      .clk    (clk),
      .rst_n  (rst_n)
    );
@@ -900,10 +900,10 @@ sirv_flash_qspi_top u_sirv_qspi0_top(
   wire [32-1:0] gpioA_o_oe;
   wire [32-1:0] gpioA_in_sync;
   wire [32-1:0] gpioA_iof;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_gpioA_apb_icb2apb(
     .i_icb_cmd_valid (gpioA_apb_icb_cmd_valid),
     .i_icb_cmd_ready (gpioA_apb_icb_cmd_ready),
@@ -912,7 +912,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (gpioA_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (gpioA_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (gpioA_apb_icb_rsp_valid),
     .i_icb_rsp_ready (gpioA_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (gpioA_apb_icb_rsp_rdata),
@@ -921,12 +921,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (gpioA_apb_paddr  ),
     .apb_pwrite    (gpioA_apb_pwrite ),
     .apb_pselx     (gpioA_apb_pselx  ),
-    .apb_penable   (gpioA_apb_penable), 
+    .apb_penable   (gpioA_apb_penable),
     .apb_pwdata    (gpioA_apb_pwdata ),
     .apb_prdata    (gpioA_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
@@ -967,10 +967,10 @@ apb_gpio # (
   wire [32-1:0] gpioB_o_oe;
   wire [32-1:0] gpioB_in_sync;
   wire [32-1:0] gpioB_iof;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_gpioB_apb_icb2apb(
     .i_icb_cmd_valid (gpioB_apb_icb_cmd_valid),
     .i_icb_cmd_ready (gpioB_apb_icb_cmd_ready),
@@ -979,7 +979,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (gpioB_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (gpioB_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (gpioB_apb_icb_rsp_valid),
     .i_icb_rsp_ready (gpioB_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (gpioB_apb_icb_rsp_rdata),
@@ -988,12 +988,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (gpioB_apb_paddr  ),
     .apb_pwrite    (gpioB_apb_pwrite ),
     .apb_pselx     (gpioB_apb_pselx  ),
-    .apb_penable   (gpioB_apb_penable), 
+    .apb_penable   (gpioB_apb_penable),
     .apb_pwdata    (gpioB_apb_pwdata ),
     .apb_prdata    (gpioB_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
@@ -1031,10 +1031,10 @@ apb_gpio # (
 
   wire  uart0_txd;
   wire  uart0_rxd;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_uart0_apb_icb2apb(
     .i_icb_cmd_valid (uart0_apb_icb_cmd_valid),
     .i_icb_cmd_ready (uart0_apb_icb_cmd_ready),
@@ -1043,7 +1043,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (uart0_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (uart0_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (uart0_apb_icb_rsp_valid),
     .i_icb_rsp_ready (uart0_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (uart0_apb_icb_rsp_rdata),
@@ -1052,17 +1052,17 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (uart0_apb_paddr  ),
     .apb_pwrite    (uart0_apb_pwrite ),
     .apb_pselx     (uart0_apb_pselx  ),
-    .apb_penable   (uart0_apb_penable), 
+    .apb_penable   (uart0_apb_penable),
     .apb_pwdata    (uart0_apb_pwdata ),
     .apb_prdata    (uart0_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
 apb_uart_sv # (
-  .APB_ADDR_WIDTH (32) 
+  .APB_ADDR_WIDTH (32)
 ) u_perips_apb_uart0 (
     .CLK            (clk),
     .RSTN           (rst_n),
@@ -1075,8 +1075,8 @@ apb_uart_sv # (
     .PREADY         (),
     .PSLVERR        (),
 
-    .rx_i           (uart0_rxd),     
-    .tx_o           (uart0_txd),      
+    .rx_i           (uart0_rxd),
+    .tx_o           (uart0_txd),
 
     .event_o        (uart0_irq)
 );
@@ -1105,10 +1105,10 @@ apb_uart_sv # (
 
   wire  uart1_txd;
   wire  uart1_rxd;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_uart1_apb_icb2apb(
     .i_icb_cmd_valid (uart1_apb_icb_cmd_valid),
     .i_icb_cmd_ready (uart1_apb_icb_cmd_ready),
@@ -1117,7 +1117,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (uart1_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (uart1_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (uart1_apb_icb_rsp_valid),
     .i_icb_rsp_ready (uart1_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (uart1_apb_icb_rsp_rdata),
@@ -1126,17 +1126,17 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (uart1_apb_paddr  ),
     .apb_pwrite    (uart1_apb_pwrite ),
     .apb_pselx     (uart1_apb_pselx  ),
-    .apb_penable   (uart1_apb_penable), 
+    .apb_penable   (uart1_apb_penable),
     .apb_pwdata    (uart1_apb_pwdata ),
     .apb_prdata    (uart1_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
 apb_uart_sv # (
-  .APB_ADDR_WIDTH (32) 
+  .APB_ADDR_WIDTH (32)
 ) u_perips_apb_uart1 (
     .CLK            (clk),
     .RSTN           (rst_n),
@@ -1149,8 +1149,8 @@ apb_uart_sv # (
     .PREADY         (),
     .PSLVERR        (),
 
-    .rx_i           (uart1_rxd),     
-    .tx_o           (uart1_txd),      
+    .rx_i           (uart1_rxd),
+    .tx_o           (uart1_txd),
 
     .event_o        (uart1_irq)
 );
@@ -1180,10 +1180,10 @@ apb_uart_sv # (
 
   wire  uart2_txd;
   wire  uart2_rxd;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_uart2_apb_icb2apb(
     .i_icb_cmd_valid (uart2_apb_icb_cmd_valid),
     .i_icb_cmd_ready (uart2_apb_icb_cmd_ready),
@@ -1192,7 +1192,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (uart2_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (uart2_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (uart2_apb_icb_rsp_valid),
     .i_icb_rsp_ready (uart2_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (uart2_apb_icb_rsp_rdata),
@@ -1201,17 +1201,17 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (uart2_apb_paddr  ),
     .apb_pwrite    (uart2_apb_pwrite ),
     .apb_pselx     (uart2_apb_pselx  ),
-    .apb_penable   (uart2_apb_penable), 
+    .apb_penable   (uart2_apb_penable),
     .apb_pwdata    (uart2_apb_pwdata ),
     .apb_prdata    (uart2_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
 apb_uart_sv # (
-  .APB_ADDR_WIDTH (32) 
+  .APB_ADDR_WIDTH (32)
 ) u_perips_apb_uart2 (
     .CLK            (clk),
     .RSTN           (rst_n),
@@ -1224,8 +1224,8 @@ apb_uart_sv # (
     .PREADY         (),
     .PSLVERR        (),
 
-    .rx_i           (uart2_rxd),     
-    .tx_o           (uart2_txd),      
+    .rx_i           (uart2_rxd),
+    .tx_o           (uart2_txd),
 
     .event_o        (uart2_irq)
 );
@@ -1252,7 +1252,7 @@ apb_uart_sv # (
   wire spi1_apb_penable;
   wire [`E203_XLEN-1:0] spi1_apb_pwdata;
   wire [`E203_XLEN-1:0] spi1_apb_prdata;
-  
+
   wire qspi1_sck ;
   wire qspi1_cs_0;
   wire qspi1_dq_0_o;
@@ -1271,7 +1271,7 @@ apb_uart_sv # (
 
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_spi1_apb_icb2apb(
     .i_icb_cmd_valid (spi1_apb_icb_cmd_valid),
     .i_icb_cmd_ready (spi1_apb_icb_cmd_ready),
@@ -1280,7 +1280,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (spi1_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (spi1_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (spi1_apb_icb_rsp_valid),
     .i_icb_rsp_ready (spi1_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (spi1_apb_icb_rsp_rdata),
@@ -1289,12 +1289,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (spi1_apb_paddr  ),
     .apb_pwrite    (spi1_apb_pwrite ),
     .apb_pselx     (spi1_apb_pselx  ),
-    .apb_penable   (spi1_apb_penable), 
+    .apb_penable   (spi1_apb_penable),
     .apb_pwdata    (spi1_apb_pwdata ),
     .apb_prdata    (spi1_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
@@ -1338,7 +1338,7 @@ apb_spi_master #(
   wire io_pads_qspi1_sck_o_oval ;
   wire io_pads_qspi1_sck_o_oe   ;
   wire io_pads_qspi1_cs_0_i_ival;
-  wire io_pads_qspi1_cs_0_o_oval; 
+  wire io_pads_qspi1_cs_0_o_oval;
   wire io_pads_qspi1_cs_0_o_oe  ;
   wire io_pads_qspi1_dq_0_i_ival;
   wire io_pads_qspi1_dq_0_o_oval;
@@ -1380,7 +1380,7 @@ apb_spi_master #(
   wire spi2_apb_penable;
   wire [`E203_XLEN-1:0] spi2_apb_pwdata;
   wire [`E203_XLEN-1:0] spi2_apb_prdata;
-  
+
   wire qspi2_sck ;
   wire qspi2_cs_0;
   wire qspi2_dq_0_o;
@@ -1399,7 +1399,7 @@ apb_spi_master #(
 
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_spi2_apb_icb2apb(
     .i_icb_cmd_valid (spi2_apb_icb_cmd_valid),
     .i_icb_cmd_ready (spi2_apb_icb_cmd_ready),
@@ -1408,7 +1408,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (spi2_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (spi2_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (spi2_apb_icb_rsp_valid),
     .i_icb_rsp_ready (spi2_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (spi2_apb_icb_rsp_rdata),
@@ -1417,12 +1417,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (spi2_apb_paddr  ),
     .apb_pwrite    (spi2_apb_pwrite ),
     .apb_pselx     (spi2_apb_pselx  ),
-    .apb_penable   (spi2_apb_penable), 
+    .apb_penable   (spi2_apb_penable),
     .apb_pwdata    (spi2_apb_pwdata ),
     .apb_prdata    (spi2_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
@@ -1466,7 +1466,7 @@ apb_spi_master #(
   wire io_pads_qspi2_sck_o_oval ;
   wire io_pads_qspi2_sck_o_oe   ;
   wire io_pads_qspi2_cs_0_i_ival;
-  wire io_pads_qspi2_cs_0_o_oval; 
+  wire io_pads_qspi2_cs_0_o_oval;
   wire io_pads_qspi2_cs_0_o_oe  ;
   wire io_pads_qspi2_dq_0_i_ival;
   wire io_pads_qspi2_dq_0_o_oval;
@@ -1507,10 +1507,10 @@ apb_spi_master #(
   wire i2c0_apb_penable;
   wire [`E203_XLEN-1:0] i2c0_apb_pwdata;
   wire [`E203_XLEN-1:0] i2c0_apb_prdata;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_i2c0_apb_icb2apb(
     .i_icb_cmd_valid (i2c0_apb_icb_cmd_valid),
     .i_icb_cmd_ready (i2c0_apb_icb_cmd_ready),
@@ -1519,7 +1519,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (i2c0_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (i2c0_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (i2c0_apb_icb_rsp_valid),
     .i_icb_rsp_ready (i2c0_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (i2c0_apb_icb_rsp_rdata),
@@ -1528,12 +1528,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (i2c0_apb_paddr  ),
     .apb_pwrite    (i2c0_apb_pwrite ),
     .apb_pselx     (i2c0_apb_pselx  ),
-    .apb_penable   (i2c0_apb_penable), 
+    .apb_penable   (i2c0_apb_penable),
     .apb_pwdata    (i2c0_apb_pwdata ),
     .apb_prdata    (i2c0_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
   wire io_pads_i2c0_scl_o_oen ;
@@ -1544,7 +1544,7 @@ sirv_gnrl_icb2apb # (
   wire io_pads_i2c0_sda_i_ival;
 
 apb_i2c #(
-  .APB_ADDR_WIDTH (32) 
+  .APB_ADDR_WIDTH (32)
 ) u_perips_apb_i2c0 (
     .HCLK          (clk),
     .HRESETn       (rst_n),
@@ -1574,10 +1574,10 @@ apb_i2c #(
   wire i2c1_apb_penable;
   wire [`E203_XLEN-1:0] i2c1_apb_pwdata;
   wire [`E203_XLEN-1:0] i2c1_apb_prdata;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_i2c1_apb_icb2apb(
     .i_icb_cmd_valid (i2c1_apb_icb_cmd_valid),
     .i_icb_cmd_ready (i2c1_apb_icb_cmd_ready),
@@ -1586,7 +1586,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (i2c1_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (i2c1_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (i2c1_apb_icb_rsp_valid),
     .i_icb_rsp_ready (i2c1_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (i2c1_apb_icb_rsp_rdata),
@@ -1595,12 +1595,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (i2c1_apb_paddr  ),
     .apb_pwrite    (i2c1_apb_pwrite ),
     .apb_pselx     (i2c1_apb_pselx  ),
-    .apb_penable   (i2c1_apb_penable), 
+    .apb_penable   (i2c1_apb_penable),
     .apb_pwdata    (i2c1_apb_pwdata ),
     .apb_prdata    (i2c1_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
   wire io_pads_i2c1_scl_o_oen ;
@@ -1611,7 +1611,7 @@ sirv_gnrl_icb2apb # (
   wire io_pads_i2c1_sda_i_ival;
 
 apb_i2c #(
-  .APB_ADDR_WIDTH (32) 
+  .APB_ADDR_WIDTH (32)
 ) u_perips_apb_i2c1 (
     .HCLK          (clk),
     .HRESETn       (rst_n),
@@ -1634,7 +1634,7 @@ apb_i2c #(
 );
 
 
-  // * APB Peripheral:  PWM 
+  // * APB Peripheral:  PWM
   wire [`E203_ADDR_SIZE-1:0] pwm_apb_paddr;
   wire pwm_apb_pwrite;
   wire pwm_apb_pselx;
@@ -1647,10 +1647,10 @@ apb_i2c #(
   wire [3:0] pwm_timer1_o;
   wire [3:0] pwm_timer2_o;
   wire [3:0] pwm_timer3_o;
-   
+
 sirv_gnrl_icb2apb # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_pwm_apb_icb2apb(
     .i_icb_cmd_valid (pwm_apb_icb_cmd_valid),
     .i_icb_cmd_ready (pwm_apb_icb_cmd_ready),
@@ -1659,7 +1659,7 @@ sirv_gnrl_icb2apb # (
     .i_icb_cmd_wdata (pwm_apb_icb_cmd_wdata),
     .i_icb_cmd_wmask (pwm_apb_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (pwm_apb_icb_rsp_valid),
     .i_icb_rsp_ready (pwm_apb_icb_rsp_ready),
     .i_icb_rsp_rdata (pwm_apb_icb_rsp_rdata),
@@ -1668,12 +1668,12 @@ sirv_gnrl_icb2apb # (
     .apb_paddr     (pwm_apb_paddr  ),
     .apb_pwrite    (pwm_apb_pwrite ),
     .apb_pselx     (pwm_apb_pselx  ),
-    .apb_penable   (pwm_apb_penable), 
+    .apb_penable   (pwm_apb_penable),
     .apb_pwdata    (pwm_apb_pwdata ),
     .apb_prdata    (pwm_apb_prdata ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 
@@ -1695,12 +1695,12 @@ apb_adv_timer #(
     .dft_cg_enable_i (1'b0),
     .low_speed_clk_i (ls_clk),
     .ext_sig_i       (gpioA_in_sync),
-    
-    .events_o        ({pwm_irq_3,pwm_irq_2,pwm_irq_1,pwm_irq_0}),	
-   
-    .ch_0_o          (pwm_timer0_o),	
-    .ch_1_o          (pwm_timer1_o),	
-    .ch_2_o          (pwm_timer2_o),	
+
+    .events_o        ({pwm_irq_3,pwm_irq_2,pwm_irq_1,pwm_irq_0}),
+
+    .ch_0_o          (pwm_timer0_o),
+    .ch_1_o          (pwm_timer1_o),
+    .ch_2_o          (pwm_timer2_o),
     .ch_3_o          (pwm_timer3_o)
 );
 
@@ -1836,7 +1836,7 @@ apb_adv_timer #(
   wire expl_axi_bvalid;
   wire expl_axi_bready;
   wire [1:0] expl_axi_bresp;
-   
+
 sirv_gnrl_icb2axi # (
   .AXI_FIFO_DP (2), // We just add ping-pong buffer here to avoid any potential timing loops
                     //   User can change it to 0 if dont care
@@ -1844,7 +1844,7 @@ sirv_gnrl_icb2axi # (
   .AW   (32),
   .FIFO_OUTS_NUM (1),// We only allow 1 oustandings at most for peripheral, user can configure it to any value
   .FIFO_CUT_READY(1),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_expl_axi_icb2axi(
     .i_icb_cmd_valid (expl_axi_icb_cmd_valid),
     .i_icb_cmd_ready (expl_axi_icb_cmd_ready),
@@ -1853,7 +1853,7 @@ sirv_gnrl_icb2axi # (
     .i_icb_cmd_wdata (expl_axi_icb_cmd_wdata),
     .i_icb_cmd_wmask (expl_axi_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (expl_axi_icb_rsp_valid),
     .i_icb_rsp_ready (expl_axi_icb_rsp_ready),
     .i_icb_rsp_rdata (expl_axi_icb_rsp_rdata),
@@ -1868,7 +1868,7 @@ sirv_gnrl_icb2axi # (
     .o_axi_arburst   (expl_axi_arburst),
     .o_axi_arlen     (expl_axi_arlen  ),
     .o_axi_arsize    (expl_axi_arsize ),
-                      
+
     .o_axi_awvalid   (expl_axi_awvalid),
     .o_axi_awready   (expl_axi_awready),
     .o_axi_awaddr    (expl_axi_awaddr ),
@@ -1878,30 +1878,30 @@ sirv_gnrl_icb2axi # (
     .o_axi_awburst   (expl_axi_awburst),
     .o_axi_awlen     (expl_axi_awlen  ),
     .o_axi_awsize    (expl_axi_awsize ),
-                     
+
     .o_axi_rvalid    (expl_axi_rvalid ),
     .o_axi_rready    (expl_axi_rready ),
     .o_axi_rdata     (expl_axi_rdata  ),
     .o_axi_rresp     (expl_axi_rresp  ),
     .o_axi_rlast     (expl_axi_rlast  ),
-                    
+
     .o_axi_wvalid    (expl_axi_wvalid ),
     .o_axi_wready    (expl_axi_wready ),
     .o_axi_wdata     (expl_axi_wdata  ),
     .o_axi_wstrb     (expl_axi_wstrb  ),
     .o_axi_wlast     (expl_axi_wlast  ),
-                   
+
     .o_axi_bvalid    (expl_axi_bvalid ),
     .o_axi_bready    (expl_axi_bready ),
     .o_axi_bresp     (expl_axi_bresp  ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 sirv_expl_axi_slv # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_perips_expl_axi_slv (
     .axi_arvalid   (expl_axi_arvalid),
     .axi_arready   (expl_axi_arready),
@@ -1912,7 +1912,7 @@ sirv_expl_axi_slv # (
     .axi_arburst   (expl_axi_arburst),
     .axi_arlen     (expl_axi_arlen  ),
     .axi_arsize    (expl_axi_arsize ),
-     
+
     .axi_awvalid   (expl_axi_awvalid),
     .axi_awready   (expl_axi_awready),
     .axi_awaddr    (expl_axi_awaddr ),
@@ -1922,25 +1922,25 @@ sirv_expl_axi_slv # (
     .axi_awburst   (expl_axi_awburst),
     .axi_awlen     (expl_axi_awlen  ),
     .axi_awsize    (expl_axi_awsize ),
-    
+
     .axi_rvalid    (expl_axi_rvalid ),
     .axi_rready    (expl_axi_rready ),
     .axi_rdata     (expl_axi_rdata  ),
     .axi_rresp     (expl_axi_rresp  ),
     .axi_rlast     (expl_axi_rlast  ),
-   
+
     .axi_wvalid    (expl_axi_wvalid ),
     .axi_wready    (expl_axi_wready ),
     .axi_wdata     (expl_axi_wdata  ),
     .axi_wstrb     (expl_axi_wstrb  ),
     .axi_wlast     (expl_axi_wlast  ),
-  
+
     .axi_bvalid    (expl_axi_bvalid ),
     .axi_bready    (expl_axi_bready ),
     .axi_bresp     (expl_axi_bresp  ),
 
     .clk           (clk  ),
-    .rst_n         (rst_n) 
+    .rst_n         (rst_n)
   );
 
 
@@ -1957,23 +1957,23 @@ sirv_expl_axi_slv # (
     .pll_N (pll_N ),
     .plloutdivby1(plloutdivby1),
     .plloutdiv   (plloutdiv   ),
-                              
+
     .hfxoscen    (hfxoscen    ),
 
 
     .i_icb_cmd_valid(hclkgen_icb_cmd_valid),
     .i_icb_cmd_ready(hclkgen_icb_cmd_ready),
-    .i_icb_cmd_addr (hclkgen_icb_cmd_addr[11:0]), 
-    .i_icb_cmd_read (hclkgen_icb_cmd_read ), 
+    .i_icb_cmd_addr (hclkgen_icb_cmd_addr[11:0]),
+    .i_icb_cmd_read (hclkgen_icb_cmd_read ),
     .i_icb_cmd_wdata(hclkgen_icb_cmd_wdata),
-                     
+
     .i_icb_rsp_valid(hclkgen_icb_rsp_valid),
     .i_icb_rsp_ready(hclkgen_icb_rsp_ready),
     .i_icb_rsp_rdata(hclkgen_icb_rsp_rdata)
   );
 
 
-  // The GPIOA IOF SET 
+  // The GPIOA IOF SET
  assign  io_pads_gpioA_o_oe[0]      =  gpioA_iof[0]    ? io_pads_pwm0_ch0_o_oe          : gpioA_o_oe[0];
  assign  io_pads_gpioA_o_oe[1]      =  gpioA_iof[1]    ? io_pads_pwm0_ch1_o_oe          : gpioA_o_oe[1];
  assign  io_pads_gpioA_o_oe[2]      =  gpioA_iof[2]    ? io_pads_pwm0_ch2_o_oe          : gpioA_o_oe[2];
@@ -2006,7 +2006,7 @@ sirv_expl_axi_slv # (
  assign  io_pads_gpioA_o_oe[29]     =  gpioA_o_oe[29];
  assign  io_pads_gpioA_o_oe[30]     =  gpioA_o_oe[30];
  assign  io_pads_gpioA_o_oe[31]     =  gpioA_o_oe[31];
- 
+
  assign  io_pads_gpioA_o_oval[0]    =  gpioA_iof[0]    ? io_pads_pwm0_ch0_o_oval        : gpioA_o_oval[0];
  assign  io_pads_gpioA_o_oval[1]    =  gpioA_iof[1]    ? io_pads_pwm0_ch1_o_oval        : gpioA_o_oval[1];
  assign  io_pads_gpioA_o_oval[2]    =  gpioA_iof[2]    ? io_pads_pwm0_ch2_o_oval        : gpioA_o_oval[2];
@@ -2063,7 +2063,7 @@ sirv_expl_axi_slv # (
  assign  io_pads_uart2_txd_i_ival   =  gpioA_in_sync[19];
 
 
-  // The GPIOB IOF SET 
+  // The GPIOB IOF SET
  assign  io_pads_gpioB_o_oe[0]      =  gpioB_iof[0]    ? io_pads_pwm2_ch0_o_oe          : gpioB_o_oe[0];
  assign  io_pads_gpioB_o_oe[1]      =  gpioB_iof[1]    ? io_pads_pwm2_ch1_o_oe          : gpioB_o_oe[1];
  assign  io_pads_gpioB_o_oe[2]      =  gpioB_iof[2]    ? io_pads_pwm2_ch2_o_oe          : gpioB_o_oe[2];
@@ -2096,7 +2096,7 @@ sirv_expl_axi_slv # (
  assign  io_pads_gpioB_o_oe[29]     =  gpioB_o_oe[29];
  assign  io_pads_gpioB_o_oe[30]     =  gpioB_o_oe[30];
  assign  io_pads_gpioB_o_oe[31]     =  gpioB_o_oe[31];
- 
+
  assign  io_pads_gpioB_o_oval[0]    =  gpioB_iof[0]    ? io_pads_pwm2_ch0_o_oval        : gpioB_o_oval[0];
  assign  io_pads_gpioB_o_oval[1]    =  gpioB_iof[1]    ? io_pads_pwm2_ch1_o_oval        : gpioB_o_oval[1];
  assign  io_pads_gpioB_o_oval[2]    =  gpioB_iof[2]    ? io_pads_pwm2_ch2_o_oval        : gpioB_o_oval[2];

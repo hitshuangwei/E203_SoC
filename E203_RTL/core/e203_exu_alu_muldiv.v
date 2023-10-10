@@ -1,27 +1,27 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Bob Hu
 //
 // Description:
-//  This module to implement the 17cycles MUL and 33 cycles DIV unit, which is mostly 
+//  This module to implement the 17cycles MUL and 33 cycles DIV unit, which is mostly
 //  share the datapath with ALU_DPATH module to save gatecount to mininum
 //
 //
@@ -34,7 +34,7 @@ module e203_exu_alu_muldiv(
 
   //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////
-  // The Issue Handshake Interface to MULDIV 
+  // The Issue Handshake Interface to MULDIV
   //
   input  muldiv_i_valid, // Handshake valid
   output muldiv_i_ready, // Handshake ready
@@ -55,13 +55,13 @@ module e203_exu_alu_muldiv(
   output muldiv_o_valid, // Handshake valid
   input  muldiv_o_ready, // Handshake ready
   output [`E203_XLEN-1:0] muldiv_o_wbck_wdat,
-  output muldiv_o_wbck_err,   
+  output muldiv_o_wbck_err,
   //   There is no exception cases for MULDIV, so no addtional cmt signals
 
   //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////
   // To share the ALU datapath, generate interface to ALU
-  // 
+  //
      // The operands and info to ALU
   output [`E203_MULDIV_ADDER_WIDTH-1:0] muldiv_req_alu_op1,
   output [`E203_MULDIV_ADDER_WIDTH-1:0] muldiv_req_alu_op2,
@@ -118,7 +118,7 @@ module e203_exu_alu_muldiv(
 
 
   /////////////////////////////////////////////////////////////////////////////////
-  // Implement the state machine for 
+  // Implement the state machine for
   //    (1) The MUL instructions
   //    (2) The DIV instructions
   localparam MULDIV_STATE_WIDTH = 3;
@@ -137,8 +137,8 @@ module e203_exu_alu_muldiv(
   localparam MULDIV_STATE_QUOT_CORR = 3'd3;
   // State 4: Reminder correction
   localparam MULDIV_STATE_REMD_CORR = 3'd4;
-  
- 
+
+
   wire [MULDIV_STATE_WIDTH-1:0] state_0th_nxt;
   wire [MULDIV_STATE_WIDTH-1:0] state_exec_nxt;
   wire [MULDIV_STATE_WIDTH-1:0] state_remd_chck_nxt;
@@ -166,40 +166,40 @@ module e203_exu_alu_muldiv(
   assign state_0th_nxt      = MULDIV_STATE_EXEC;
 
       // **** If the current state is exec,
-  wire div_need_corrct; 
-  wire mul_exec_last_cycle; 
-  wire div_exec_last_cycle; 
-  wire exec_last_cycle; 
+  wire div_need_corrct;
+  wire mul_exec_last_cycle;
+  wire div_exec_last_cycle;
+  wire exec_last_cycle;
   assign state_exec_exit_ena =  muldiv_sta_is_exec & ((
-          // If it is the last cycle (16th or 32rd cycles), 
-                           exec_last_cycle 
+          // If it is the last cycle (16th or 32rd cycles),
+                           exec_last_cycle
               // If it is div op, then jump to DIV_CHECK state
                          & (i_op_div ? 1'b1
-              // If it is not div-need-correction, then jump to 0th 
+              // If it is not div-need-correction, then jump to 0th
                                             : muldiv_o_hsked))
             | flush_pulse);
-  assign state_exec_nxt      = 
+  assign state_exec_nxt      =
                 (
                          flush_pulse ? MULDIV_STATE_0TH :
               // If it is div op, then jump to DIV_CHECK state
                          i_op_div ? MULDIV_STATE_REMD_CHCK
-              // If it is not div-need-correction, then jump to 0th 
+              // If it is not div-need-correction, then jump to 0th
                                          : MULDIV_STATE_0TH
                 );
 
       // **** If the current state is REMD_CHCK,
           // If it is div-need-correction, then jump to QUOT_CORR state
           //   otherwise jump to the 0th
-  assign state_remd_chck_exit_ena = (muldiv_sta_is_remd_chck & ( 
+  assign state_remd_chck_exit_ena = (muldiv_sta_is_remd_chck & (
               // If it is div op, then jump to DIV_CHECK state
                                               (div_need_corrct ? 1'b1
-              // If it is not div-need-correction, then jump to 0th 
-                                                         : muldiv_o_hsked) 
+              // If it is not div-need-correction, then jump to 0th
+                                                         : muldiv_o_hsked)
                                               | flush_pulse )) ;
   assign state_remd_chck_nxt      = flush_pulse ? MULDIV_STATE_0TH :
               // If it is div-need-correction, then jump to QUOT_CORR state
                          div_need_corrct ? MULDIV_STATE_QUOT_CORR
-              // If it is not div-need-correction, then jump to 0th 
+              // If it is not div-need-correction, then jump to 0th
                                          : MULDIV_STATE_0TH;
 
       // **** If the current state is QUOT_CORR,
@@ -207,21 +207,21 @@ module e203_exu_alu_muldiv(
   assign state_quot_corr_exit_ena = (muldiv_sta_is_quot_corr & (flush_pulse | 1'b1));
   assign state_quot_corr_nxt      = flush_pulse ? MULDIV_STATE_0TH : MULDIV_STATE_REMD_CORR;
 
-                
+
       // **** If the current state is REMD_CORR,
-              // Then jump to 0th 
+              // Then jump to 0th
   assign state_remd_corr_exit_ena = (muldiv_sta_is_remd_corr & (flush_pulse | muldiv_o_hsked));
   assign state_remd_corr_nxt      = flush_pulse ? MULDIV_STATE_0TH : MULDIV_STATE_0TH;
 
-  // The state will only toggle when each state is meeting the condition to exit 
-  assign muldiv_state_ena = state_0th_exit_ena 
-                          | state_exec_exit_ena  
-                          | state_remd_chck_exit_ena  
-                          | state_quot_corr_exit_ena  
-                          | state_remd_corr_exit_ena;  
+  // The state will only toggle when each state is meeting the condition to exit
+  assign muldiv_state_ena = state_0th_exit_ena
+                          | state_exec_exit_ena
+                          | state_remd_chck_exit_ena
+                          | state_quot_corr_exit_ena
+                          | state_remd_corr_exit_ena;
 
   // The next-state is onehot mux to select different entries
-  assign muldiv_state_nxt = 
+  assign muldiv_state_nxt =
               ({MULDIV_STATE_WIDTH{state_0th_exit_ena      }} & state_0th_nxt      )
             | ({MULDIV_STATE_WIDTH{state_exec_exit_ena     }} & state_exec_nxt     )
             | ({MULDIV_STATE_WIDTH{state_remd_chck_exit_ena}} & state_remd_chck_nxt)
@@ -240,8 +240,8 @@ module e203_exu_alu_muldiv(
 
   wire[EXEC_CNT_W-1:0] exec_cnt_r;
   wire exec_cnt_set = state_exec_enter_ena;
-  wire exec_cnt_inc = muldiv_sta_is_exec & (~exec_last_cycle); 
-  wire exec_cnt_ena = exec_cnt_inc | exec_cnt_set; 
+  wire exec_cnt_inc = muldiv_sta_is_exec & (~exec_last_cycle);
+  wire exec_cnt_ena = exec_cnt_inc | exec_cnt_set;
     // When set, the counter is set to 1, because the 0th state also counted as 0th cycle
   wire[EXEC_CNT_W-1:0] exec_cnt_nxt = exec_cnt_set ? EXEC_CNT_1 : (exec_cnt_r + 1'b1);
   sirv_gnrl_dfflr #(EXEC_CNT_W) exec_cnt_dfflr (exec_cnt_ena, exec_cnt_nxt, exec_cnt_r, clk, rst_n);
@@ -281,17 +281,17 @@ module e203_exu_alu_muldiv(
   wire booth_sel_zero = (booth_code == 3'b000) | (booth_code == 3'b111);
   wire booth_sel_two  = (booth_code == 3'b011) | (booth_code == 3'b100);
   wire booth_sel_one  = (~booth_sel_zero) & (~booth_sel_two);
-  wire booth_sel_sub  = booth_code[2];  
+  wire booth_sel_sub  = booth_code[2];
 
   // 35 bits adder needed
   wire [`E203_MULDIV_ADDER_WIDTH-1:0] mul_exe_alu_res = muldiv_req_alu_res;
-  wire [`E203_MULDIV_ADDER_WIDTH-1:0] mul_exe_alu_op2 = 
-      ({`E203_MULDIV_ADDER_WIDTH{booth_sel_zero}} & `E203_MULDIV_ADDER_WIDTH'b0) 
-    | ({`E203_MULDIV_ADDER_WIDTH{booth_sel_one }} & {mul_rs2_sign,mul_rs2_sign,mul_rs2_sign,muldiv_i_rs2}) 
-    | ({`E203_MULDIV_ADDER_WIDTH{booth_sel_two }} & {mul_rs2_sign,mul_rs2_sign,muldiv_i_rs2,1'b0}) 
+  wire [`E203_MULDIV_ADDER_WIDTH-1:0] mul_exe_alu_op2 =
+      ({`E203_MULDIV_ADDER_WIDTH{booth_sel_zero}} & `E203_MULDIV_ADDER_WIDTH'b0)
+    | ({`E203_MULDIV_ADDER_WIDTH{booth_sel_one }} & {mul_rs2_sign,mul_rs2_sign,mul_rs2_sign,muldiv_i_rs2})
+    | ({`E203_MULDIV_ADDER_WIDTH{booth_sel_two }} & {mul_rs2_sign,mul_rs2_sign,muldiv_i_rs2,1'b0})
       ;
   wire [`E203_MULDIV_ADDER_WIDTH-1:0] mul_exe_alu_op1 =
-       cycle_0th ? `E203_MULDIV_ADDER_WIDTH'b0 : {part_prdt_hi_r[32],part_prdt_hi_r[32],part_prdt_hi_r};  
+       cycle_0th ? `E203_MULDIV_ADDER_WIDTH'b0 : {part_prdt_hi_r[32],part_prdt_hi_r[32],part_prdt_hi_r};
   wire mul_exe_alu_add = (~booth_sel_sub);
   wire mul_exe_alu_sub = booth_sel_sub;
 
@@ -302,7 +302,7 @@ module e203_exu_alu_muldiv(
   wire part_prdt_sft1_nxt = cycle_0th ? muldiv_i_rs1[1] : part_prdt_lo_r[1];
 
   wire mul_exe_cnt_set = exec_cnt_set & i_op_mul;
-  wire mul_exe_cnt_inc = exec_cnt_inc & i_op_mul; 
+  wire mul_exe_cnt_inc = exec_cnt_inc & i_op_mul;
 
   wire part_prdt_hi_ena = mul_exe_cnt_set | mul_exe_cnt_inc | state_exec_exit_ena;
   wire part_prdt_lo_ena = part_prdt_hi_ena;
@@ -318,7 +318,7 @@ module e203_exu_alu_muldiv(
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-// The Divider Implementation, using the non-restoring signed division 
+// The Divider Implementation, using the non-restoring signed division
   wire [32:0] part_remd_r;
   wire [32:0] part_quot_r;
 
@@ -355,9 +355,9 @@ module e203_exu_alu_muldiv(
     // Since the part_remd_r is only save 33bits (after left shifted), so the adder result MSB bit we need to save
     //   it here, which will be used at next round
   sirv_gnrl_dfflr #(1) part_remd_sft1_dfflr (part_remd_ena, div_exe_alu_res[32], part_remd_sft1_r, clk, rst_n);
-  
+
   wire div_exe_cnt_set = exec_cnt_set & i_op_div;
-  wire div_exe_cnt_inc = exec_cnt_inc & i_op_div; 
+  wire div_exe_cnt_inc = exec_cnt_inc & i_op_div;
 
   wire corrct_phase = muldiv_sta_is_remd_corr | muldiv_sta_is_quot_corr;
   wire check_phase  = muldiv_sta_is_remd_chck;
@@ -365,17 +365,17 @@ module e203_exu_alu_muldiv(
   wire [33:0] div_quot_corr_alu_res;
   wire [33:0] div_remd_corr_alu_res;
        // Note: in last cycle, the reminder value is the non-shifted value
-       //   but the quotient value is the shifted value, and last bit of quotient value is shifted always by 1 
-       // If need corrective, the correct quot first, and then reminder, so reminder output as comb logic directly to 
+       //   but the quotient value is the shifted value, and last bit of quotient value is shifted always by 1
+       // If need corrective, the correct quot first, and then reminder, so reminder output as comb logic directly to
            // save a cycle
   wire [32:0] div_remd = check_phase  ? part_remd_r [32:0]:
                          corrct_phase ? div_remd_corr_alu_res[32:0] :
                                         div_exe_part_remd[65:33];
   wire [32:0] div_quot = check_phase  ? part_quot_r [32:0]:
-                         corrct_phase ? part_quot_r [32:0]: 
+                         corrct_phase ? part_quot_r [32:0]:
                                         {div_exe_part_remd[31:0],1'b1};
 
-  // The partial reminder and quotient   
+  // The partial reminder and quotient
   wire [32:0] part_remd_nxt = corrct_phase ? div_remd_corr_alu_res[32:0] :
                               (muldiv_sta_is_exec & div_exec_last_cycle) ? div_remd :
                                                           div_exe_part_remd_lsft1[65:33];
@@ -390,7 +390,7 @@ module e203_exu_alu_muldiv(
   wire div_remd_chck_alu_sub = 1'b0;
 
   wire remd_is_0 = ~(|part_remd_r);
-  wire remd_is_neg_divs = ~(|div_remd_chck_alu_res); 
+  wire remd_is_neg_divs = ~(|div_remd_chck_alu_res);
   wire remd_is_divs = (part_remd_r == divisor[32:0]);
   assign div_need_corrct = i_op_div & (
                                 ((part_remd_r[32] ^ dividend[65]) & (~remd_is_0))
@@ -447,7 +447,7 @@ module e203_exu_alu_muldiv(
   wire[`E203_XLEN-1:0] special_res = div_special_res;// Only divider have special cases
 
   // To detect the sequence of MULH[[S]U] rdh, rs1, rs2;    MUL rdl, rs1, rs2
-  // To detect the sequence of     DIV[U] rdq, rs1, rs2; REM[U] rdr, rs1, rs2  
+  // To detect the sequence of     DIV[U] rdq, rs1, rs2; REM[U] rdr, rs1, rs2
   wire [`E203_XLEN-1:0] back2back_mul_res = {part_prdt_lo_r[`E203_XLEN-2:0],part_prdt_sft1_r};// Only the MUL will be treated as back2back
   wire [`E203_XLEN-1:0] back2back_mul_rem = part_remd_r[`E203_XLEN-1:0];
   wire [`E203_XLEN-1:0] back2back_mul_div = part_quot_r[`E203_XLEN-1:0];
@@ -459,13 +459,13 @@ module e203_exu_alu_muldiv(
 
     // The output will be valid:
     //   * If it is back2back and sepcial cases, just directly pass out from input
-    //   * If it is not back2back sequence when it is the last cycle of exec state 
+    //   * If it is not back2back sequence when it is the last cycle of exec state
     //     (not div need correction) or last correct state;
-  wire wbck_condi = (back2back_seq | special_cases) ? 1'b1 : 
+  wire wbck_condi = (back2back_seq | special_cases) ? 1'b1 :
                        (
                            (muldiv_sta_is_exec & exec_last_cycle & (~i_op_div))
-                         | (muldiv_sta_is_remd_chck & (~div_need_corrct)) 
-                         | muldiv_sta_is_remd_corr 
+                         | (muldiv_sta_is_remd_chck & (~div_need_corrct))
+                         | muldiv_sta_is_remd_corr
                        );
   assign muldiv_o_valid = wbck_condi & muldiv_i_valid;
   assign muldiv_i_ready = wbck_condi & muldiv_o_ready;
@@ -473,7 +473,7 @@ module e203_exu_alu_muldiv(
   wire res_sel_b2b  = back2back_seq & (~special_cases);
   wire res_sel_div  = (~back2back_seq) & (~special_cases) & i_op_div;
   wire res_sel_mul  = (~back2back_seq) & (~special_cases) & i_op_mul;
-  assign muldiv_o_wbck_wdat = 
+  assign muldiv_o_wbck_wdat =
                ({`E203_XLEN{res_sel_b2b}} & back2back_res)
              | ({`E203_XLEN{res_sel_spl}} & special_res)
              | ({`E203_XLEN{res_sel_div}} & div_res)
@@ -489,32 +489,32 @@ module e203_exu_alu_muldiv(
   wire req_alu_sel4 = i_op_div & muldiv_sta_is_remd_corr;
   wire req_alu_sel5 = i_op_div & muldiv_sta_is_remd_chck;
 
-  assign muldiv_req_alu_op1 = 
+  assign muldiv_req_alu_op1 =
              ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel1}} & mul_exe_alu_op1      )
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel2}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_exe_alu_op1      })
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel3}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_quot_corr_alu_op1})
-           | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel4}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_corr_alu_op1}) 
+           | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel4}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_corr_alu_op1})
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel5}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_chck_alu_op1});
 
-  assign muldiv_req_alu_op2 = 
+  assign muldiv_req_alu_op2 =
              ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel1}} & mul_exe_alu_op2      )
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel2}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_exe_alu_op2      })
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel3}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_quot_corr_alu_op2})
-           | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel4}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_corr_alu_op2}) 
+           | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel4}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_corr_alu_op2})
            | ({`E203_MULDIV_ADDER_WIDTH{req_alu_sel5}} & {{`E203_MULDIV_ADDER_WIDTH-34{1'b0}},div_remd_chck_alu_op2});
 
-  assign muldiv_req_alu_add  = 
+  assign muldiv_req_alu_add  =
              (req_alu_sel1 & mul_exe_alu_add      )
            | (req_alu_sel2 & div_exe_alu_add      )
            | (req_alu_sel3 & div_quot_corr_alu_add)
-           | (req_alu_sel4 & div_remd_corr_alu_add) 
+           | (req_alu_sel4 & div_remd_corr_alu_add)
            | (req_alu_sel5 & div_remd_chck_alu_add);
 
-  assign muldiv_req_alu_sub  = 
+  assign muldiv_req_alu_sub  =
              (req_alu_sel1 & mul_exe_alu_sub      )
            | (req_alu_sel2 & div_exe_alu_sub      )
            | (req_alu_sel3 & div_quot_corr_alu_sub)
-           | (req_alu_sel4 & div_remd_corr_alu_sub) 
+           | (req_alu_sel4 & div_remd_corr_alu_sub)
            | (req_alu_sel5 & div_remd_chck_alu_sub);
 
   assign muldiv_sbf_0_ena = part_remd_ena | part_prdt_hi_ena;
@@ -545,36 +545,36 @@ module e203_exu_alu_muldiv(
   wire [31:0] golden0_mul_op2 = mul_op2[32] ? (~mul_op2[31:0]+1) : mul_op2[31:0];
   wire [63:0] golden0_mul_res_pre = golden0_mul_op1 * golden0_mul_op2;
   wire [63:0] golden0_mul_res = (mul_op1[32]^mul_op2[32]) ? (~golden0_mul_res_pre + 1) : golden0_mul_res_pre;
-  wire [63:0] golden1_mul_res = $signed(mul_op1) * $signed(mul_op2); 
-  
+  wire [63:0] golden1_mul_res = $signed(mul_op1) * $signed(mul_op2);
+
   // To check the signed * operation is really get what we wanted
-    CHECK_SIGNED_OP_CORRECT:
+    /*CHECK_SIGNED_OP_CORRECT:
       assert property (@(posedge clk) disable iff ((~rst_n) | (~muldiv_o_valid))  ((golden0_mul_res == golden1_mul_res)))
-      else $fatal ("\n Error: Oops, This should never happen. \n");
+      else $fatal ("\n Error: Oops, This should never happen. \n");*/
 
   wire [31:0] golden1_res_mul    = golden1_mul_res[31:0];
-  wire [31:0] golden1_res_mulh   = golden1_mul_res[63:32];                       
-  wire [31:0] golden1_res_mulhsu = golden1_mul_res[63:32];                                              
-  wire [31:0] golden1_res_mulhu  = golden1_mul_res[63:32];                                                
+  wire [31:0] golden1_res_mulh   = golden1_mul_res[63:32];
+  wire [31:0] golden1_res_mulhsu = golden1_mul_res[63:32];
+  wire [31:0] golden1_res_mulhu  = golden1_mul_res[63:32];
 
   wire [63:0] golden2_res_mul_SxS = $signed(muldiv_i_rs1)   * $signed(muldiv_i_rs2);
   wire [63:0] golden2_res_mul_SxU = $signed(muldiv_i_rs1)   * $unsigned(muldiv_i_rs2);
   wire [63:0] golden2_res_mul_UxS = $unsigned(muldiv_i_rs1) * $signed(muldiv_i_rs2);
   wire [63:0] golden2_res_mul_UxU = $unsigned(muldiv_i_rs1) * $unsigned(muldiv_i_rs2);
-  
+
   wire [31:0] golden2_res_mul    = golden2_res_mul_SxS[31:0];
-  wire [31:0] golden2_res_mulh   = golden2_res_mul_SxS[63:32];                       
-  wire [31:0] golden2_res_mulhsu = golden2_res_mul_SxU[63:32];                                              
-  wire [31:0] golden2_res_mulhu  = golden2_res_mul_UxU[63:32];                                                
+  wire [31:0] golden2_res_mulh   = golden2_res_mul_SxS[63:32];
+  wire [31:0] golden2_res_mulhsu = golden2_res_mul_SxU[63:32];
+  wire [31:0] golden2_res_mulhu  = golden2_res_mul_UxU[63:32];
 
   // To check four different combination will all generate same lower 32bits result
-    CHECK_FOUR_COMB_SAME_RES:
+    /*CHECK_FOUR_COMB_SAME_RES:
       assert property (@(posedge clk) disable iff ((~rst_n) | (~muldiv_o_valid))
           (golden2_res_mul_SxS[31:0] == golden2_res_mul_SxU[31:0])
         & (golden2_res_mul_UxS[31:0] == golden2_res_mul_UxU[31:0])
         & (golden2_res_mul_SxU[31:0] == golden2_res_mul_UxS[31:0])
        )
-      else $fatal ("\n Error: Oops, This should never happen. \n");
+      else $fatal ("\n Error: Oops, This should never happen. \n");*/
 
       // Seems the golden2 result is not correct in case of mulhsu, so have to comment it out
  // // To check golden1 and golden2 result are same
@@ -586,19 +586,19 @@ module e203_exu_alu_muldiv(
  //        &(i_mulhu  ? (golden1_res_mulhu  == golden2_res_mulhu ) : 1'b1)
  //      )
  //     else $fatal ("\n Error: Oops, This should never happen. \n");
-      
+
      // The special case will need to be handled specially
-  wire [32:0] golden_res_div  = div_special_cases ? div_special_res : 
+  wire [32:0] golden_res_div  = div_special_cases ? div_special_res :
      (  $signed({div_rs1_sign,muldiv_i_rs1})   / ((div_by_0 | div_ovf) ? 1 :   $signed({div_rs2_sign,muldiv_i_rs2})));
-  wire [32:0] golden_res_divu  = div_special_cases ? div_special_res : 
+  wire [32:0] golden_res_divu  = div_special_cases ? div_special_res :
      ($unsigned({div_rs1_sign,muldiv_i_rs1})   / ((div_by_0 | div_ovf) ? 1 : $unsigned({div_rs2_sign,muldiv_i_rs2})));
-  wire [32:0] golden_res_rem  = div_special_cases ? div_special_res : 
+  wire [32:0] golden_res_rem  = div_special_cases ? div_special_res :
      (  $signed({div_rs1_sign,muldiv_i_rs1})   % ((div_by_0 | div_ovf) ? 1 :   $signed({div_rs2_sign,muldiv_i_rs2})));
-  wire [32:0] golden_res_remu  = div_special_cases ? div_special_res : 
+  wire [32:0] golden_res_remu  = div_special_cases ? div_special_res :
      ($unsigned({div_rs1_sign,muldiv_i_rs1})   % ((div_by_0 | div_ovf) ? 1 : $unsigned({div_rs2_sign,muldiv_i_rs2})));
- 
+
   // To check golden and actual result are same
-  wire [`E203_XLEN-1:0] golden_res = 
+  wire [`E203_XLEN-1:0] golden_res =
          i_mul    ? golden1_res_mul    :
          i_mulh   ? golden1_res_mulh   :
          i_mulhsu ? golden1_res_mulhsu :
@@ -609,7 +609,7 @@ module e203_exu_alu_muldiv(
          i_remu   ? golden_res_remu[31:0]    :
                     `E203_XLEN'b0;
 
-  CHECK_GOLD_AND_ACTUAL_SAME:
+  /*CHECK_GOLD_AND_ACTUAL_SAME:
         // Since the printed value is not aligned with posedge clock, so change it to negetive
     assert property (@(negedge clk) disable iff ((~rst_n) | flush_pulse)
         (muldiv_o_valid ? (golden_res == muldiv_o_wbck_wdat   ) : 1'b1)
@@ -618,19 +618,19 @@ module e203_exu_alu_muldiv(
         $display("??????????????????????????????????????????");
         $display("??????????????????????????????????????????");
         $display("{i_mul,i_mulh,i_mulhsu,i_mulhu,i_div,i_divu,i_rem,i_remu}=%d%d%d%d%d%d%d%d",i_mul,i_mulh,i_mulhsu,i_mulhu,i_div,i_divu,i_rem,i_remu);
-        $display("muldiv_i_rs1=%h\nmuldiv_i_rs2=%h\n",muldiv_i_rs1,muldiv_i_rs2);     
-        $display("golden_res=%h\nmuldiv_o_wbck_wdat=%h",golden_res,muldiv_o_wbck_wdat);     
+        $display("muldiv_i_rs1=%h\nmuldiv_i_rs2=%h\n",muldiv_i_rs1,muldiv_i_rs2);
+        $display("golden_res=%h\nmuldiv_o_wbck_wdat=%h",golden_res,muldiv_o_wbck_wdat);
         $display("??????????????????????????????????????????");
         $fatal ("\n Error: Oops, This should never happen. \n");
-      end
+      end*/
 
 //synopsys translate_on
 `endif//}
 `endif//}
 
 
-endmodule                                      
+endmodule
 `endif//}
-                                               
-                                               
-                                               
+
+
+

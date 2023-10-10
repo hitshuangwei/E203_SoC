@@ -1,21 +1,21 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Bob Hu
@@ -25,7 +25,7 @@
 //
 // ====================================================================
 
-`include "e203_defines.v"
+`include "../core/e203_defines.v"
 
 module sirv_debug_module
 # (
@@ -47,7 +47,7 @@ module sirv_debug_module
 
   input  dbg_irq_r,
 
-    // The interface with CSR control 
+    // The interface with CSR control
   input  wr_dcsr_ena    ,
   input  wr_dpc_ena     ,
   input  wr_dscratch_ena,
@@ -70,10 +70,10 @@ module sirv_debug_module
   // The system memory bus interface
   input                      i_icb_cmd_valid,
   output                     i_icb_cmd_ready,
-  input  [12-1:0]            i_icb_cmd_addr, 
-  input                      i_icb_cmd_read, 
+  input  [12-1:0]            i_icb_cmd_addr,
+  input                      i_icb_cmd_read,
   input  [32-1:0]            i_icb_cmd_wdata,
-  
+
   output                     i_icb_rsp_valid,
   input                      i_icb_rsp_ready,
   output [32-1:0]            i_icb_rsp_rdata,
@@ -119,14 +119,14 @@ module sirv_debug_module
   input   hfclk,
   input   corerst,
 
-  input   test_mode 
+  input   test_mode
 );
 
 
   wire dm_rst;
   wire dm_rst_n;
 
-  //This is to reset Debug module's logic, the debug module have same clock domain 
+  //This is to reset Debug module's logic, the debug module have same clock domain
   //  as the main domain, so just use the same reset.
  sirv_ResetCatchAndSync_2 u_dm_ResetCatchAndSync_2_1 (
     .test_mode(test_mode),
@@ -134,10 +134,10 @@ module sirv_debug_module
     .reset(corerst),
     .io_sync_reset(dm_rst)
   );
-  
+
   assign dm_rst_n = ~dm_rst;
 
-  //This is to reset the JTAG_CLK relevant logics, since the chip does not 
+  //This is to reset the JTAG_CLK relevant logics, since the chip does not
   //  have the JTAG_RST used really, so we need to use the global chip reset to reset
   //  JTAG relevant logics
  wire jtag_TCK;
@@ -217,9 +217,9 @@ module sirv_debug_module
     .wr_dscratch_ena (wr_dscratch_ena),
 
 
-                                     
+
     .wr_csr_nxt      (wr_csr_nxt     ),
-                                     
+
     .dcsr_r          (dcsr_r         ),
     .dpc_r           (dpc_r          ),
     .dscratch_r      (dscratch_r     ),
@@ -230,7 +230,7 @@ module sirv_debug_module
     .dbg_ebreakm_r   (dbg_ebreakm_r),
 
     .clk             (core_csr_clk),
-    .rst_n           (dm_rst_n ) 
+    .rst_n           (dm_rst_n )
   );
 
 
@@ -249,19 +249,19 @@ module sirv_debug_module
       sirv_jtag_dtm # (
           .ASYNC_FF_LEVELS(ASYNC_FF_LEVELS)
       ) u_sirv_jtag_dtm (
-                       
+
         .jtag_TDI           (jtag_TDI      ),
         .jtag_TDO           (jtag_TDO      ),
         .jtag_TCK           (jtag_TCK      ),
         .jtag_TMS           (jtag_TMS      ),
         .jtag_TRST          (jtag_reset    ),
-                            
+
         .jtag_DRV_TDO       (jtag_DRV_TDO  ),
-                           
+
         .dtm_req_valid      (dtm_req_valid ),
         .dtm_req_ready      (dtm_req_ready ),
         .dtm_req_bits       (dtm_req_bits  ),
-                          
+
         .dtm_resp_valid     (dtm_resp_valid),
         .dtm_resp_ready     (dtm_resp_ready),
         .dtm_resp_bits      (dtm_resp_bits )
@@ -287,39 +287,39 @@ module sirv_debug_module
   wire                i_dtm_resp_ready;
   wire [36-1 : 0]     i_dtm_resp_bits;
 
-  sirv_gnrl_cdc_tx   
+  sirv_gnrl_cdc_tx
    # (
      .DW      (36),
-     .SYNC_DP (ASYNC_FF_LEVELS) 
+     .SYNC_DP (ASYNC_FF_LEVELS)
    ) u_dm2dtm_cdc_tx (
-     .o_vld  (dtm_resp_valid), 
-     .o_rdy_a(dtm_resp_ready), 
+     .o_vld  (dtm_resp_valid),
+     .o_rdy_a(dtm_resp_ready),
      .o_dat  (dtm_resp_bits ),
      .i_vld  (i_dtm_resp_valid),
      .i_rdy  (i_dtm_resp_ready),
      .i_dat  (i_dtm_resp_bits ),
-   
-     .clk    (dm_clk),
-     .rst_n  (dm_rst_n)
-   );
-     
-   sirv_gnrl_cdc_rx   
-      # (
-     .DW      (41),
-     .SYNC_DP (ASYNC_FF_LEVELS) 
-   ) u_dm2dtm_cdc_rx (
-     .i_vld_a(dtm_req_valid), 
-     .i_rdy  (dtm_req_ready), 
-     .i_dat  (dtm_req_bits ),
-     .o_vld  (i_dtm_req_valid),
-     .o_rdy  (i_dtm_req_ready),
-     .o_dat  (i_dtm_req_bits ),
-   
+
      .clk    (dm_clk),
      .rst_n  (dm_rst_n)
    );
 
-  wire i_dtm_req_hsked = i_dtm_req_valid & i_dtm_req_ready; 
+   sirv_gnrl_cdc_rx
+      # (
+     .DW      (41),
+     .SYNC_DP (ASYNC_FF_LEVELS)
+   ) u_dm2dtm_cdc_rx (
+     .i_vld_a(dtm_req_valid),
+     .i_rdy  (dtm_req_ready),
+     .i_dat  (dtm_req_bits ),
+     .o_vld  (i_dtm_req_valid),
+     .o_rdy  (i_dtm_req_ready),
+     .o_dat  (i_dtm_req_bits ),
+
+     .clk    (dm_clk),
+     .rst_n  (dm_rst_n)
+   );
+
+  wire i_dtm_req_hsked = i_dtm_req_valid & i_dtm_req_ready;
 
   wire [ 4:0] dtm_req_bits_addr;
   wire [33:0] dtm_req_bits_data;
@@ -336,7 +336,7 @@ module sirv_debug_module
   // The OP field
   //   0: Ignore data. (nop)
   //   1: Read from address. (read)
-  //   2: Read from address. Then write data to address. (write) 
+  //   2: Read from address. Then write data to address. (write)
   //   3: Reserved.
   wire dtm_req_rd = (dtm_req_bits_op == 2'd1);
   wire dtm_req_wr = (dtm_req_bits_op == 2'd2);
@@ -365,7 +365,7 @@ module sirv_debug_module
   //   2: The previous operation failed. The data scanned into dbus in this access
   //      will be ignored. This status is sticky and can be cleared by writing dbusreset in dtmcontrol.
   //   3: The previous operation is still in progress. The data scanned into dbus
-  //      in this access will be ignored. 
+  //      in this access will be ignored.
   wire [31:0] ram_dout;
   assign dtm_resp_bits_data =
             ({34{dtm_req_sel_dbgram  }} & {dmcontrol_r[33:32],ram_dout})
@@ -434,12 +434,12 @@ module sirv_debug_module
   // Impelement the DM ICB system bus agent
   //   0x100 - 0x2ff Debug Module registers described in Section 7.12.
   //       * Only two registers needed, others are not supported
-  //                  cleardebint, at 0x100 
-  //                  sethaltnot,  at 0x10c 
+  //                  cleardebint, at 0x100
+  //                  sethaltnot,  at 0x10c
   //   0x400 - 0x4ff Up to 256 bytes of Debug RAM. Each unique address species 8 bits.
   //       * Since this is remapped to each core's ITCM, we dont handle it at this module
   //   0x800 - 0x9ff Up to 512 bytes of Debug ROM.
-  //    
+  //
   //
   wire i_icb_cmd_hsked = i_icb_cmd_valid & i_icb_cmd_ready;
   wire icb_wr_ena = i_icb_cmd_hsked & (~i_icb_cmd_read);
@@ -470,34 +470,34 @@ module sirv_debug_module
 
   wire [31:0] rom_dout;
 
-  assign i_icb_rsp_rdata =  
-            ({32{icb_sel_cleardebint}} & {{32-HART_ID_W{1'b0}}, cleardebint_r}) 
+  assign i_icb_rsp_rdata =
+            ({32{icb_sel_cleardebint}} & {{32-HART_ID_W{1'b0}}, cleardebint_r})
           | ({32{icb_sel_sethaltnot }} & {{32-HART_ID_W{1'b0}}, sethaltnot_r})
-          | ({32{icb_sel_dbgrom  }} & rom_dout) 
+          | ({32{icb_sel_dbgrom  }} & rom_dout)
           | ({32{icb_sel_dbgram  }} & ram_dout);
 
    sirv_debug_rom u_sirv_debug_rom (
      .rom_addr (i_icb_cmd_addr[7-1:2]),
-     .rom_dout (rom_dout) 
+     .rom_dout (rom_dout)
    );
   //sirv_debug_rom_64 u_sirv_debug_rom_64(
   //  .rom_addr (i_icb_cmd_addr[8-1:2]),
-  //  .rom_dout (rom_dout) 
+  //  .rom_dout (rom_dout)
   //);
 
   wire         ram_cs   = dtm_access_dbgram_ena | icb_access_dbgram_ena;
-  wire [3-1:0] ram_addr = dtm_access_dbgram_ena ? dtm_req_bits_addr[2:0] : i_icb_cmd_addr[4:2]; 
-  wire         ram_rd   = dtm_access_dbgram_ena ? dtm_req_rd             : i_icb_cmd_read; 
+  wire [3-1:0] ram_addr = dtm_access_dbgram_ena ? dtm_req_bits_addr[2:0] : i_icb_cmd_addr[4:2];
+  wire         ram_rd   = dtm_access_dbgram_ena ? dtm_req_rd             : i_icb_cmd_read;
   wire [32-1:0]ram_wdat = dtm_access_dbgram_ena ? dtm_req_bits_data[31:0]: i_icb_cmd_wdata;
 
   sirv_debug_ram u_sirv_debug_ram(
     .clk      (dm_clk),
-    .rst_n    (dm_rst_n), 
+    .rst_n    (dm_rst_n),
     .ram_cs   (ram_cs),
     .ram_rd   (ram_rd),
     .ram_addr (ram_addr),
     .ram_wdat (ram_wdat),
-    .ram_dout (ram_dout) 
+    .ram_dout (ram_dout)
   );
 
   wire [HART_NUM-1:0] dm_haltnot_set;
@@ -537,7 +537,7 @@ module sirv_debug_module
 
   assign o_dbg_irq = dm_debint_r;
 
- 
+
   assign o_ndreset   = {HART_NUM{1'b0}};
   assign o_fullreset = {HART_NUM{1'b0}};
 

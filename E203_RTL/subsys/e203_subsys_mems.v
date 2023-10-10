@@ -1,39 +1,39 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Bob Hu
 //
 // Description:
-//  The system memory bus and the ROM instance 
+//  The system memory bus and the ROM instance
 //
 // ====================================================================
 
 
-`include "e203_defines.v"
+`include "../core/e203_defines.v"
 
 
 module e203_subsys_mems(
   input                          mem_icb_cmd_valid,
   output                         mem_icb_cmd_ready,
-  input  [`E203_ADDR_SIZE-1:0]   mem_icb_cmd_addr, 
-  input                          mem_icb_cmd_read, 
+  input  [`E203_ADDR_SIZE-1:0]   mem_icb_cmd_addr,
+  input                          mem_icb_cmd_read,
   input  [`E203_XLEN-1:0]        mem_icb_cmd_wdata,
   input  [`E203_XLEN/8-1:0]      mem_icb_cmd_wmask,
   //
@@ -41,12 +41,12 @@ module e203_subsys_mems(
   input                          mem_icb_rsp_ready,
   output                         mem_icb_rsp_err,
   output [`E203_XLEN-1:0]        mem_icb_rsp_rdata,
-  
+
   //////////////////////////////////////////////////////////
   output                         sysmem_icb_cmd_valid,
   input                          sysmem_icb_cmd_ready,
-  output [`E203_ADDR_SIZE-1:0]   sysmem_icb_cmd_addr, 
-  output                         sysmem_icb_cmd_read, 
+  output [`E203_ADDR_SIZE-1:0]   sysmem_icb_cmd_addr,
+  output                         sysmem_icb_cmd_read,
   output [`E203_XLEN-1:0]        sysmem_icb_cmd_wdata,
   output [`E203_XLEN/8-1:0]      sysmem_icb_cmd_wmask,
   //
@@ -58,8 +58,8 @@ module e203_subsys_mems(
     //////////////////////////////////////////////////////////
   output                         qspi0_ro_icb_cmd_valid,
   input                          qspi0_ro_icb_cmd_ready,
-  output [`E203_ADDR_SIZE-1:0]   qspi0_ro_icb_cmd_addr, 
-  output                         qspi0_ro_icb_cmd_read, 
+  output [`E203_ADDR_SIZE-1:0]   qspi0_ro_icb_cmd_addr,
+  output                         qspi0_ro_icb_cmd_read,
   output [`E203_XLEN-1:0]        qspi0_ro_icb_cmd_wdata,
   //
   input                          qspi0_ro_icb_rsp_valid,
@@ -71,8 +71,8 @@ module e203_subsys_mems(
     //////////////////////////////////////////////////////////
   output                         dm_icb_cmd_valid,
   input                          dm_icb_cmd_ready,
-  output [`E203_ADDR_SIZE-1:0]   dm_icb_cmd_addr, 
-  output                         dm_icb_cmd_read, 
+  output [`E203_ADDR_SIZE-1:0]   dm_icb_cmd_addr,
+  output                         dm_icb_cmd_read,
   output [`E203_XLEN-1:0]        dm_icb_cmd_wdata,
   //
   input                          dm_icb_rsp_valid,
@@ -86,12 +86,12 @@ module e203_subsys_mems(
 
 
 
-      
+
   wire                         mrom_icb_cmd_valid;
   wire                         mrom_icb_cmd_ready;
-  wire [`E203_ADDR_SIZE-1:0]   mrom_icb_cmd_addr; 
-  wire                         mrom_icb_cmd_read; 
-  
+  wire [`E203_ADDR_SIZE-1:0]   mrom_icb_cmd_addr;
+  wire                         mrom_icb_cmd_read;
+
   wire                         mrom_icb_rsp_valid;
   wire                         mrom_icb_rsp_ready;
   wire                         mrom_icb_rsp_err  ;
@@ -99,11 +99,11 @@ module e203_subsys_mems(
 
   wire                     expl_axi_icb_cmd_valid;
   wire                     expl_axi_icb_cmd_ready;
-  wire [32-1:0]            expl_axi_icb_cmd_addr; 
-  wire                     expl_axi_icb_cmd_read; 
+  wire [32-1:0]            expl_axi_icb_cmd_addr;
+  wire                     expl_axi_icb_cmd_read;
   wire [32-1:0]            expl_axi_icb_cmd_wdata;
   wire [4 -1:0]            expl_axi_icb_cmd_wmask;
-  
+
   wire                     expl_axi_icb_rsp_valid;
   wire                     expl_axi_icb_rsp_ready;
   wire [32-1:0]            expl_axi_icb_rsp_rdata;
@@ -126,33 +126,33 @@ module e203_subsys_mems(
   .SPLT_FIFO_OUTS_NUM   (1),// The Mem only allow 1 oustanding
   .SPLT_FIFO_CUT_READY  (1),// The Mem always cut ready
   //  * DM        : 0x0000 0000 -- 0x0000 0FFF
-  .O0_BASE_ADDR       (32'h0000_0000),       
+  .O0_BASE_ADDR       (32'h0000_0000),
   .O0_BASE_REGION_LSB (12),
   //  * MROM      : 0x0000 1000 -- 0x0000 1FFF
-  .O1_BASE_ADDR       (32'h0000_1000),       
+  .O1_BASE_ADDR       (32'h0000_1000),
   .O1_BASE_REGION_LSB (12),
   //  * Not used  : 0x0002 0000 -- 0x0003 FFFF
-  .O2_BASE_ADDR       (32'h0002_0000),       
+  .O2_BASE_ADDR       (32'h0002_0000),
   .O2_BASE_REGION_LSB (17),
   //  * QSPI0-RO  : 0x2000 0000 -- 0x3FFF FFFF
-  .O3_BASE_ADDR       (32'h2000_0000),       
+  .O3_BASE_ADDR       (32'h2000_0000),
   .O3_BASE_REGION_LSB (29),
   //  * SysMem    : 0x8000 0000 -- 0xFFFF FFFF
-  //    Actually since the 0xFxxx xxxx have been occupied by FIO, 
+  //    Actually since the 0xFxxx xxxx have been occupied by FIO,
   //    sysmem have no chance to access it
-  .O4_BASE_ADDR       (32'h8000_0000),       
+  .O4_BASE_ADDR       (32'h8000_0000),
   .O4_BASE_REGION_LSB (31),
 
       // * Here is an example AXI Peripheral
-  .O5_BASE_ADDR       (32'h4000_0000),       
+  .O5_BASE_ADDR       (32'h4000_0000),
   .O5_BASE_REGION_LSB (28),
-  
+
       // Not used
-  .O6_BASE_ADDR       (32'h0000_0000),       
+  .O6_BASE_ADDR       (32'h0000_0000),
   .O6_BASE_REGION_LSB (0),
-  
+
       // Not used
-  .O7_BASE_ADDR       (32'h0000_0000),       
+  .O7_BASE_ADDR       (32'h0000_0000),
   .O7_BASE_REGION_LSB (0)
 
   )u_sirv_mem_fab(
@@ -168,13 +168,13 @@ module e203_subsys_mems(
     .i_icb_cmd_size   (2'b0 ),
     .i_icb_cmd_burst  (2'b0),
     .i_icb_cmd_beat   (2'b0 ),
-    
+
     .i_icb_rsp_valid  (mem_icb_rsp_valid),
     .i_icb_rsp_ready  (mem_icb_rsp_ready),
     .i_icb_rsp_err    (mem_icb_rsp_err  ),
     .i_icb_rsp_excl_ok(),
     .i_icb_rsp_rdata  (mem_icb_rsp_rdata),
-    
+
   //  * DM
     .o0_icb_enable     (1'b1),
 
@@ -189,14 +189,14 @@ module e203_subsys_mems(
     .o0_icb_cmd_size   (),
     .o0_icb_cmd_burst  (),
     .o0_icb_cmd_beat   (),
-    
+
     .o0_icb_rsp_valid  (dm_icb_rsp_valid),
     .o0_icb_rsp_ready  (dm_icb_rsp_ready),
     .o0_icb_rsp_err    (1'b0),
     .o0_icb_rsp_excl_ok(1'b0),
     .o0_icb_rsp_rdata  (dm_icb_rsp_rdata),
 
-  //  * MROM      
+  //  * MROM
     .o1_icb_enable     (1'b1),
 
     .o1_icb_cmd_valid  (mrom_icb_cmd_valid),
@@ -210,14 +210,14 @@ module e203_subsys_mems(
     .o1_icb_cmd_size   (),
     .o1_icb_cmd_burst  (),
     .o1_icb_cmd_beat   (),
-    
+
     .o1_icb_rsp_valid  (mrom_icb_rsp_valid),
     .o1_icb_rsp_ready  (mrom_icb_rsp_ready),
     .o1_icb_rsp_err    (mrom_icb_rsp_err),
     .o1_icb_rsp_excl_ok(1'b0  ),
     .o1_icb_rsp_rdata  (mrom_icb_rsp_rdata),
 
-  //  * Not used    
+  //  * Not used
     .o2_icb_enable     (1'b0),
 
     .o2_icb_cmd_valid  (),
@@ -231,7 +231,7 @@ module e203_subsys_mems(
     .o2_icb_cmd_size   (),
     .o2_icb_cmd_burst  (),
     .o2_icb_cmd_beat   (),
-    
+
     .o2_icb_rsp_valid  (1'b0),
     .o2_icb_rsp_ready  (),
     .o2_icb_rsp_err    (1'b0  ),
@@ -239,7 +239,7 @@ module e203_subsys_mems(
     .o2_icb_rsp_rdata  (`E203_XLEN'b0),
 
 
-  //  * QSPI0-RO  
+  //  * QSPI0-RO
     .o3_icb_enable     (1'b1),
 
     .o3_icb_cmd_valid  (qspi0_ro_icb_cmd_valid),
@@ -253,7 +253,7 @@ module e203_subsys_mems(
     .o3_icb_cmd_size   (),
     .o3_icb_cmd_burst  (),
     .o3_icb_cmd_beat   (),
-    
+
     .o3_icb_rsp_valid  (qspi0_ro_icb_rsp_valid),
     .o3_icb_rsp_ready  (qspi0_ro_icb_rsp_ready),
     .o3_icb_rsp_err    (qspi0_ro_icb_rsp_err),
@@ -275,14 +275,14 @@ module e203_subsys_mems(
     .o4_icb_cmd_size   (),
     .o4_icb_cmd_burst  (),
     .o4_icb_cmd_beat   (),
-    
+
     .o4_icb_rsp_valid  (sysmem_icb_rsp_valid),
     .o4_icb_rsp_ready  (sysmem_icb_rsp_ready),
     .o4_icb_rsp_err    (sysmem_icb_rsp_err    ),
     .o4_icb_rsp_excl_ok(1'b0),
     .o4_icb_rsp_rdata  (sysmem_icb_rsp_rdata),
 
-   //  * Example AXI    
+   //  * Example AXI
     .o5_icb_enable     (1'b1),
 
     .o5_icb_cmd_valid  (expl_axi_icb_cmd_valid),
@@ -296,7 +296,7 @@ module e203_subsys_mems(
     .o5_icb_cmd_size   (),
     .o5_icb_cmd_burst  (),
     .o5_icb_cmd_beat   (),
-    
+
     .o5_icb_rsp_valid  (expl_axi_icb_rsp_valid),
     .o5_icb_rsp_ready  (expl_axi_icb_rsp_ready),
     .o5_icb_rsp_err    (expl_axi_icb_rsp_err),
@@ -318,7 +318,7 @@ module e203_subsys_mems(
     .o6_icb_cmd_size   (),
     .o6_icb_cmd_burst  (),
     .o6_icb_cmd_beat   (),
-    
+
     .o6_icb_rsp_valid  (1'b0),
     .o6_icb_rsp_ready  (),
     .o6_icb_rsp_err    (1'b0  ),
@@ -339,7 +339,7 @@ module e203_subsys_mems(
     .o7_icb_cmd_size   (),
     .o7_icb_cmd_burst  (),
     .o7_icb_cmd_beat   (),
-    
+
     .o7_icb_rsp_valid  (1'b0),
     .o7_icb_rsp_ready  (),
     .o7_icb_rsp_err    (1'b0  ),
@@ -347,7 +347,7 @@ module e203_subsys_mems(
     .o7_icb_rsp_rdata  (`E203_XLEN'b0),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
   sirv_mrom_top #(
@@ -360,14 +360,14 @@ module e203_subsys_mems(
     .rom_icb_cmd_ready  (mrom_icb_cmd_ready),
     .rom_icb_cmd_addr   (mrom_icb_cmd_addr [MROM_AW-1:0]),
     .rom_icb_cmd_read   (mrom_icb_cmd_read ),
-    
+
     .rom_icb_rsp_valid  (mrom_icb_rsp_valid),
     .rom_icb_rsp_ready  (mrom_icb_rsp_ready),
     .rom_icb_rsp_err    (mrom_icb_rsp_err  ),
     .rom_icb_rsp_rdata  (mrom_icb_rsp_rdata),
 
     .clk           (clk  ),
-    .rst_n         (rst_n) 
+    .rst_n         (rst_n)
   );
 
       // * Here is an example AXI Peripheral
@@ -406,7 +406,7 @@ module e203_subsys_mems(
   wire expl_axi_bvalid;
   wire expl_axi_bready;
   wire [1:0] expl_axi_bresp;
-   
+
 sirv_gnrl_icb2axi # (
   .AXI_FIFO_DP (2), // We just add ping-pong buffer here to avoid any potential timing loops
                     //   User can change it to 0 if dont care
@@ -414,7 +414,7 @@ sirv_gnrl_icb2axi # (
   .AW   (32),
   .FIFO_OUTS_NUM (4),// We only allow 4 oustandings at most for mem, user can configure it to any value
   .FIFO_CUT_READY(1),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_expl_axi_icb2axi(
     .i_icb_cmd_valid (expl_axi_icb_cmd_valid),
     .i_icb_cmd_ready (expl_axi_icb_cmd_ready),
@@ -423,7 +423,7 @@ sirv_gnrl_icb2axi # (
     .i_icb_cmd_wdata (expl_axi_icb_cmd_wdata),
     .i_icb_cmd_wmask (expl_axi_icb_cmd_wmask),
     .i_icb_cmd_size  (),
-    
+
     .i_icb_rsp_valid (expl_axi_icb_rsp_valid),
     .i_icb_rsp_ready (expl_axi_icb_rsp_ready),
     .i_icb_rsp_rdata (expl_axi_icb_rsp_rdata),
@@ -438,7 +438,7 @@ sirv_gnrl_icb2axi # (
     .o_axi_arburst   (expl_axi_arburst),
     .o_axi_arlen     (expl_axi_arlen  ),
     .o_axi_arsize    (expl_axi_arsize ),
-                      
+
     .o_axi_awvalid   (expl_axi_awvalid),
     .o_axi_awready   (expl_axi_awready),
     .o_axi_awaddr    (expl_axi_awaddr ),
@@ -448,30 +448,30 @@ sirv_gnrl_icb2axi # (
     .o_axi_awburst   (expl_axi_awburst),
     .o_axi_awlen     (expl_axi_awlen  ),
     .o_axi_awsize    (expl_axi_awsize ),
-                     
+
     .o_axi_rvalid    (expl_axi_rvalid ),
     .o_axi_rready    (expl_axi_rready ),
     .o_axi_rdata     (expl_axi_rdata  ),
     .o_axi_rresp     (expl_axi_rresp  ),
     .o_axi_rlast     (expl_axi_rlast  ),
-                    
+
     .o_axi_wvalid    (expl_axi_wvalid ),
     .o_axi_wready    (expl_axi_wready ),
     .o_axi_wdata     (expl_axi_wdata  ),
     .o_axi_wstrb     (expl_axi_wstrb  ),
     .o_axi_wlast     (expl_axi_wlast  ),
-                   
+
     .o_axi_bvalid    (expl_axi_bvalid ),
     .o_axi_bready    (expl_axi_bready ),
     .o_axi_bresp     (expl_axi_bresp  ),
 
     .clk           (clk  ),
-    .rst_n         (bus_rst_n) 
+    .rst_n         (bus_rst_n)
   );
 
 sirv_expl_axi_slv # (
   .AW   (32),
-  .DW   (`E203_XLEN) 
+  .DW   (`E203_XLEN)
 ) u_perips_expl_axi_slv (
     .axi_arvalid   (expl_axi_arvalid),
     .axi_arready   (expl_axi_arready),
@@ -492,7 +492,7 @@ sirv_expl_axi_slv # (
     .axi_awburst   (expl_axi_awburst),
     .axi_awlen     (expl_axi_awlen  ),
     .axi_awsize    (expl_axi_awsize ),
-  
+
     .axi_rvalid    (expl_axi_rvalid ),
     .axi_rready    (expl_axi_rready ),
     .axi_rdata     (expl_axi_rdata  ),
@@ -504,13 +504,13 @@ sirv_expl_axi_slv # (
     .axi_wdata     (expl_axi_wdata  ),
     .axi_wstrb     (expl_axi_wstrb  ),
     .axi_wlast     (expl_axi_wlast  ),
- 
+
     .axi_bvalid    (expl_axi_bvalid ),
     .axi_bready    (expl_axi_bready ),
     .axi_bresp     (expl_axi_bresp  ),
 
     .clk           (clk  ),
-    .rst_n         (rst_n) 
+    .rst_n         (rst_n)
   );
 
 

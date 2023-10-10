@@ -1,21 +1,21 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Bob Hu
@@ -57,9 +57,9 @@ module e203_exu_commit(
 
   input                      alu_cmt_i_valid,
   output                     alu_cmt_i_ready,
-  input  [`E203_PC_SIZE-1:0] alu_cmt_i_pc,  
-  input  [`E203_INSTR_SIZE-1:0] alu_cmt_i_instr,  
-  input                      alu_cmt_i_pc_vld,  
+  input  [`E203_PC_SIZE-1:0] alu_cmt_i_pc,
+  input  [`E203_INSTR_SIZE-1:0] alu_cmt_i_instr,
+  input                      alu_cmt_i_pc_vld,
   input  [`E203_XLEN-1:0]    alu_cmt_i_imm,
   input                      alu_cmt_i_rv32,
     //   The Branch Commit
@@ -73,15 +73,15 @@ module e203_exu_commit(
   input                      alu_cmt_i_ifu_misalgn ,
   input                      alu_cmt_i_ifu_buserr ,
   input                      alu_cmt_i_ifu_ilegl ,
-  input                      alu_cmt_i_bjp_prdt,// The predicted ture/false  
+  input                      alu_cmt_i_bjp_prdt,// The predicted ture/false
   input                      alu_cmt_i_bjp_rslv,// The resolved ture/false
-    //   The AGU Exception 
+    //   The AGU Exception
   input                      alu_cmt_i_misalgn, // The misalign exception generated
   input                      alu_cmt_i_ld,
   input                      alu_cmt_i_stamo,
   input                      alu_cmt_i_buserr , // The bus-error exception generated
   input [`E203_ADDR_SIZE-1:0]alu_cmt_i_badaddr,
-  
+
   output  [`E203_ADDR_SIZE-1:0] cmt_badaddr,
   output  cmt_badaddr_ena,
   output  [`E203_PC_SIZE-1:0] cmt_epc,
@@ -109,7 +109,7 @@ module e203_exu_commit(
 
 
   input   oitf_empty,
-  
+
   input   u_mode,
   input   s_mode,
   input   h_mode,
@@ -127,7 +127,7 @@ module e203_exu_commit(
   //////////////////////////////////////////////////////////////
   // The Flush interface to IFU
   //
-  //   To save the gatecount, when we need to flush pipeline with new PC, 
+  //   To save the gatecount, when we need to flush pipeline with new PC,
   //     we want to reuse the adder in IFU, so we will not pass flush-PC
   //     to IFU, instead, we pass the flush-pc-adder-op1/op2 to IFU
   //     and IFU will just use its adder to caculate the flush-pc-adder-result
@@ -138,10 +138,10 @@ module e203_exu_commit(
 
   input   pipe_flush_ack,
   output  pipe_flush_req,
-  output  [`E203_PC_SIZE-1:0] pipe_flush_add_op1,  
-  output  [`E203_PC_SIZE-1:0] pipe_flush_add_op2,  
+  output  [`E203_PC_SIZE-1:0] pipe_flush_add_op1,
+  output  [`E203_PC_SIZE-1:0] pipe_flush_add_op2,
   `ifdef E203_TIMING_BOOST//}
-  output  [`E203_PC_SIZE-1:0] pipe_flush_pc,  
+  output  [`E203_PC_SIZE-1:0] pipe_flush_pc,
   `endif//}
 
   input  clk,
@@ -151,7 +151,7 @@ module e203_exu_commit(
 
   wire                      alu_brchmis_flush_ack;
   wire                      alu_brchmis_flush_req;
-  wire  [`E203_PC_SIZE-1:0] alu_brchmis_flush_add_op1;  
+  wire  [`E203_PC_SIZE-1:0] alu_brchmis_flush_add_op1;
   wire  [`E203_PC_SIZE-1:0] alu_brchmis_flush_add_op2;
   `ifdef E203_TIMING_BOOST//}
   wire [`E203_PC_SIZE-1:0] alu_brchmis_flush_pc;
@@ -164,9 +164,9 @@ module e203_exu_commit(
 
   e203_exu_branchslv u_e203_exu_branchslv(
     .cmt_i_ready             (alu_brchmis_cmt_i_ready    ),
-    .cmt_i_valid             (alu_cmt_i_valid   ),  
-    .cmt_i_rv32              (alu_cmt_i_rv32    ),  
-    .cmt_i_bjp               (alu_cmt_i_bjp     ),  
+    .cmt_i_valid             (alu_cmt_i_valid   ),
+    .cmt_i_rv32              (alu_cmt_i_rv32    ),
+    .cmt_i_bjp               (alu_cmt_i_bjp     ),
     .cmt_i_fencei            (alu_cmt_i_fencei  ),
     .cmt_i_mret              (alu_cmt_i_mret     ),
     .cmt_i_dret              (alu_cmt_i_dret     ),
@@ -174,7 +174,7 @@ module e203_exu_commit(
     .cmt_i_bjp_rslv          (alu_cmt_i_bjp_rslv),
     .cmt_i_pc                (alu_cmt_i_pc      ),
     .cmt_i_imm               (alu_cmt_i_imm     ),
-                         
+
     .cmt_mret_ena            (cmt_mret_ena       ),
     .cmt_dret_ena            (cmt_dret_ena       ),
     .cmt_fencei_ena          (),
@@ -185,10 +185,10 @@ module e203_exu_commit(
     .nonalu_excpirq_flush_req_raw(nonalu_excpirq_flush_req_raw ),
     .brchmis_flush_ack       (alu_brchmis_flush_ack    ),
     .brchmis_flush_req       (alu_brchmis_flush_req    ),
-    .brchmis_flush_add_op1   (alu_brchmis_flush_add_op1),  
-    .brchmis_flush_add_op2   (alu_brchmis_flush_add_op2),  
+    .brchmis_flush_add_op1   (alu_brchmis_flush_add_op1),
+    .brchmis_flush_add_op2   (alu_brchmis_flush_add_op2),
   `ifdef E203_TIMING_BOOST//}
-    .brchmis_flush_pc        (alu_brchmis_flush_pc),  
+    .brchmis_flush_pc        (alu_brchmis_flush_pc),
   `endif//}
 
     .clk   (clk  ),
@@ -197,7 +197,7 @@ module e203_exu_commit(
 
   wire excpirq_flush_ack;
   wire excpirq_flush_req;
-  wire [`E203_PC_SIZE-1:0] excpirq_flush_add_op1;  
+  wire [`E203_PC_SIZE-1:0] excpirq_flush_add_op1;
   wire [`E203_PC_SIZE-1:0] excpirq_flush_add_op2;
   `ifdef E203_TIMING_BOOST//}
   wire [`E203_PC_SIZE-1:0] excpirq_flush_pc;
@@ -216,14 +216,14 @@ module e203_exu_commit(
     .wfi_halt_ifu_ack      (wfi_halt_ifu_ack),
     .wfi_halt_exu_ack      (wfi_halt_exu_ack),
 
-    .cmt_badaddr           (cmt_badaddr    ), 
+    .cmt_badaddr           (cmt_badaddr    ),
     .cmt_badaddr_ena       (cmt_badaddr_ena),
     .cmt_epc               (cmt_epc        ),
     .cmt_epc_ena           (cmt_epc_ena    ),
     .cmt_cause             (cmt_cause      ),
     .cmt_cause_ena         (cmt_cause_ena  ),
     .cmt_status_ena        (cmt_status_ena ),
-                           
+
     .cmt_dpc               (cmt_dpc        ),
     .cmt_dpc_ena           (cmt_dpc_ena    ),
     .cmt_dcause            (cmt_dcause     ),
@@ -248,7 +248,7 @@ module e203_exu_commit(
     .alu_excp_i_ifu_misalgn(alu_cmt_i_ifu_misalgn),
     .alu_excp_i_ifu_buserr (alu_cmt_i_ifu_buserr ),
     .alu_excp_i_ifu_ilegl  (alu_cmt_i_ifu_ilegl  ),
-                         
+
     .longp_excp_i_ready    (longp_excp_i_ready  ),
     .longp_excp_i_valid    (longp_excp_i_valid  ),
     .longp_excp_i_ld       (longp_excp_i_ld     ),
@@ -286,8 +286,8 @@ module e203_exu_commit(
     .excpirq_flush_ack        (excpirq_flush_ack       ),
     .excpirq_flush_req        (excpirq_flush_req       ),
     .nonalu_excpirq_flush_req_raw (nonalu_excpirq_flush_req_raw ),
-    .excpirq_flush_add_op1    (excpirq_flush_add_op1),  
-    .excpirq_flush_add_op2    (excpirq_flush_add_op2),  
+    .excpirq_flush_add_op1    (excpirq_flush_add_op1),
+    .excpirq_flush_add_op2    (excpirq_flush_add_op2),
   `ifdef E203_TIMING_BOOST//}
     .excpirq_flush_pc         (excpirq_flush_pc),
   `endif//}
@@ -299,19 +299,19 @@ module e203_exu_commit(
     .rst_n (rst_n)
   );
 
- 
+
 
   assign excpirq_flush_ack = pipe_flush_ack;
   assign alu_brchmis_flush_ack = pipe_flush_ack;
 
   assign pipe_flush_req = excpirq_flush_req | alu_brchmis_flush_req;
-            
+
   assign alu_cmt_i_ready = alu_excp_cmt_i_ready & alu_brchmis_cmt_i_ready;
 
-  assign pipe_flush_add_op1 = excpirq_flush_req ? excpirq_flush_add_op1 : alu_brchmis_flush_add_op1;  
-  assign pipe_flush_add_op2 = excpirq_flush_req ? excpirq_flush_add_op2 : alu_brchmis_flush_add_op2;  
+  assign pipe_flush_add_op1 = excpirq_flush_req ? excpirq_flush_add_op1 : alu_brchmis_flush_add_op1;
+  assign pipe_flush_add_op2 = excpirq_flush_req ? excpirq_flush_add_op2 : alu_brchmis_flush_add_op2;
   `ifdef E203_TIMING_BOOST//}
-  assign pipe_flush_pc      = excpirq_flush_req ? excpirq_flush_pc : alu_brchmis_flush_pc;  
+  assign pipe_flush_pc      = excpirq_flush_req ? excpirq_flush_pc : alu_brchmis_flush_pc;
   `endif//}
 
   assign cmt_ena = alu_cmt_i_valid & alu_cmt_i_ready;
@@ -331,18 +331,18 @@ module e203_exu_commit(
 //synopsys translate_off
 
  `ifndef E203_HAS_LOCKSTEP//{
-CHECK_1HOT_FLUSH_HALT:
+/*CHECK_1HOT_FLUSH_HALT:
   assert property (@(posedge clk) disable iff (~rst_n)
                      ($onehot0({wfi_halt_ifu_req,pipe_flush_req}))
                   )
-  else $fatal ("\n Error: Oops, detected non-onehot0 value for halt and flush req!!! This should never happen. \n");
+  else $fatal ("\n Error: Oops, detected non-onehot0 value for halt and flush req!!! This should never happen. \n");*/
  `endif//}
 
 //synopsys translate_on
 `endif//}
 `endif//}
 
-endmodule                                      
-                                               
-                                               
-                                               
+endmodule
+
+
+

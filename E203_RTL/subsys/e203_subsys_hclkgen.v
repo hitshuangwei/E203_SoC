@@ -1,21 +1,21 @@
- /*                                                                      
- Copyright 2018-2020 Nuclei System Technology, Inc.                
-                                                                         
- Licensed under the Apache License, Version 2.0 (the "License");         
- you may not use this file except in compliance with the License.        
- You may obtain a copy of the License at                                 
-                                                                         
-     http://www.apache.org/licenses/LICENSE-2.0                          
-                                                                         
-  Unless required by applicable law or agreed to in writing, software    
- distributed under the License is distributed on an "AS IS" BASIS,       
+ /*
+ Copyright 2018-2020 Nuclei System Technology, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and     
- limitations under the License.                                          
- */                                                                      
-                                                                         
-                                                                         
-                                                                         
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
+
 //=====================================================================
 //
 // Designer   : Bob Hu
@@ -25,13 +25,13 @@
 //
 // ====================================================================
 
-`include "e203_defines.v"
+`include "../core/e203_defines.v"
 
 
 module e203_subsys_hclkgen(
   input test_mode,
   input hfclkrst,// To reset the PLL Clock
-  
+
   input hfextclk,// The original clock from crystal
 
   input  pllbypass ,
@@ -41,7 +41,7 @@ module e203_subsys_hclkgen(
   input [7:0]  pll_M,
   input [4:0]  pll_N,
   input plloutdivby1,
-  input [5:0] plloutdiv, 
+  input [5:0] plloutdiv,
 
   output  inspect_16m_clk,
   output  inspect_pll_clk,
@@ -61,7 +61,7 @@ module e203_subsys_hclkgen(
     .pll_M   (pll_M ),
     .pll_N   (pll_N ),
     .pllrefclk  (hfextclk ),
-    .plloutclk  (plloutclk ) 
+    .plloutclk  (plloutclk )
   );
 
   // The Reset syncer for the PLLout clk
@@ -90,7 +90,7 @@ module e203_subsys_hclkgen(
     .test_mode(test_mode),
     .rst_n (plloutclk_rst_n),
     .divby1(plloutdivby1),
-    .div   (plloutdiv   ), 
+    .div   (plloutdiv   ),
     .clk   (plloutclk),// The PLL clock
     .clkout(plloutdivclk) // The divided Clock
   );
