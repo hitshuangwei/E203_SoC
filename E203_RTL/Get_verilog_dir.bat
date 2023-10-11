@@ -1,0 +1,1 @@
+dir /s /b *.v *.sv >v.txt
