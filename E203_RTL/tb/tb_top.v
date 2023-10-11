@@ -1,4 +1,4 @@
-
+`timescale 1ns/1ps
 `include "../core/e203_defines.v"
 
 module tb_top();

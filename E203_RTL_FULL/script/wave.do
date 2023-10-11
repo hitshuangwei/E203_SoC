@@ -1,0 +1,1 @@
+add wave -position insertpoint sim:/tb_top/*

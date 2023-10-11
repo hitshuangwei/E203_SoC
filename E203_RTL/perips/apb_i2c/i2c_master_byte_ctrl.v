@@ -65,7 +65,7 @@
 //               Fixed bug in the byte_controller statemachine.
 //               Added headers.
 //
-
+`timescale 1ns/1ps
 `include "i2c_master_defines.v"
 
 module i2c_master_byte_ctrl (
@@ -186,7 +186,7 @@ module i2c_master_byte_ctrl (
 	//
 	// state machine
 	//
-	reg [4:0] c_state; 
+	reg [4:0] c_state;
 
 	always @(posedge clk or negedge nReset)
 	  if (!nReset)
