@@ -13,142 +13,143 @@ vmap  hsst_e2 "C:/pango/Modelsim/hsst_e2"
 vmap  iolhr_dft "C:/pango/Modelsim/iolhr_dft"
 vmap  ipal_e1 "C:/pango/Modelsim/ipal_e1"
 vmap  pciegen2 "C:/pango/Modelsim/pciegen2"
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/config.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_biu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_clkgate.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_clk_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_core.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_cpu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_cpu_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_defines.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_dtcm_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_dtcm_ram.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_extend_csr.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_bjp.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_csrctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_dpath.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_lsuagu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_muldiv.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_rglr.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_branchslv.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_commit.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_csr.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_decode.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_disp.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_excp.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_longpwbck.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_nice.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_oitf.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_regfile.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_wbck.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_ifetch.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_ift2icb.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_litebpu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_minidec.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_irq_sync.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_itcm_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_itcm_ram.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_lsu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_lsu_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_reset_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_srams.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_csr.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_module.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_ram.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_rom.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_jtag_dtm.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to16_bus.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to2_bus.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to8_bus.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_1cyc_sram_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_bufs.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_dffs.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_icbs.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_ram.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_xchecker.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_sim_ram.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_sram_icb_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/mems/sirv_mrom.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/mems/sirv_mrom_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_lclkgen_regs.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_porrst.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_wrapper.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetReg.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_129.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_36.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_clint.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_clint_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_DeglitchShiftRegister.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_expl_axi_slv.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_flash_qspi.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_flash_qspi_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_hclkgen_regs.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_jtaggpioport.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_LevelGateway.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_plic_man.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_plic_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_pmu.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_pmu_core.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_arbiter.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_fifo.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_media.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_physical.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_queue.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_queue_1.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_repeater_6.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_ResetCatchAndSync.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_ResetCatchAndSync_2.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_rtc.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_spi_flashmap.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tlfragmenter_qspi_1.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tlwidthwidget_qspi.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tl_repeater_5.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_wdog.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/adv_timer_apb_if.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/apb_adv_timer.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/comparator.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/input_stage.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/prescaler.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/timer_cntrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/timer_module.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/up_down_counter.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_gpio/apb_gpio.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/apb_i2c.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_bit_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_byte_ctrl.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_defines.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/apb_spi_master.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_apb_if.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_clkgen.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_controller.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_fifo.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_rx.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_tx.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/apb_uart.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/io_generic_fifo.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_interrupt.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_rx.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_tx.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/soc/e203_soc_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_clint.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_gfcm.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_hclkgen.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_hclkgen_rstsync.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_main.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_mems.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_nice_core.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_perips.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_plic.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_pll.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_pllclkdiv.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_top.v" -work work
-vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/tb/tb_top.v" -work work
+vlog -f C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/vflist
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/config.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_biu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_clkgate.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_clk_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_core.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_cpu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_cpu_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_defines.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_dtcm_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_dtcm_ram.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_extend_csr.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_bjp.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_csrctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_dpath.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_lsuagu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_muldiv.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_alu_rglr.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_branchslv.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_commit.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_csr.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_decode.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_disp.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_excp.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_longpwbck.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_nice.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_oitf.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_regfile.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_exu_wbck.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_ifetch.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_ift2icb.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_litebpu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_ifu_minidec.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_irq_sync.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_itcm_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_itcm_ram.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_lsu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_lsu_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_reset_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/core/e203_srams.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_csr.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_module.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_ram.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_debug_rom.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/debug/sirv_jtag_dtm.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to16_bus.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to2_bus.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/fab/sirv_icb1to8_bus.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_1cyc_sram_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_bufs.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_dffs.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_icbs.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_ram.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_gnrl_xchecker.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_sim_ram.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/general/sirv_sram_icb_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/mems/sirv_mrom.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/mems/sirv_mrom_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_lclkgen_regs.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_porrst.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_aon_wrapper.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetReg.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_1.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_129.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_AsyncResetRegVec_36.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_clint.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_clint_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_DeglitchShiftRegister.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_expl_axi_slv.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_flash_qspi.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_flash_qspi_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_hclkgen_regs.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_jtaggpioport.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_LevelGateway.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_plic_man.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_plic_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_pmu.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_pmu_core.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_arbiter.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_fifo.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_media.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_qspi_physical.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_queue.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_queue_1.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_repeater_6.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_ResetCatchAndSync.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_ResetCatchAndSync_2.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_rtc.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_spi_flashmap.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tlfragmenter_qspi_1.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tlwidthwidget_qspi.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_tl_repeater_5.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/sirv_wdog.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/adv_timer_apb_if.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/apb_adv_timer.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/comparator.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/input_stage.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/prescaler.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/timer_cntrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/timer_module.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_adv_timer/up_down_counter.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_gpio/apb_gpio.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/apb_i2c.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_bit_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_byte_ctrl.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_i2c/i2c_master_defines.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/apb_spi_master.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_apb_if.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_clkgen.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_controller.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_fifo.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_rx.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_spi_master/spi_master_tx.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/apb_uart.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/io_generic_fifo.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_interrupt.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_rx.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/perips/apb_uart/uart_tx.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/soc/e203_soc_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_clint.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_gfcm.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_hclkgen.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_hclkgen_rstsync.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_main.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_mems.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_nice_core.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_perips.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_plic.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_pll.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_pllclkdiv.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/subsys/e203_subsys_top.v" -work work
+# vlog   "C:/Users/WS/Desktop/SoC/E203_SoC/E203_RTL/tb/tb_top.v" -work work
 
-# ----------------------------------------
+#----------------------------------------
